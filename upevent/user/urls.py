@@ -9,5 +9,5 @@ urlpatterns = [
     path('forgotpassword',views.forgot,name='userforgot'),
     path('eventview/', views.eventView, name='usereventview'),
     path('cart/',views.cart,name='cart'),
-    
+    path("yfgjh",views.jjjjjjjj,name="hgfgf")
 ]
