@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("user index")
+    return render(request ,'user/index.html')
 
 def login(request):
     return HttpResponse("user login")
@@ -23,5 +23,5 @@ def cart(request):
 def profile(request):
     return HttpResponse("user profile")
 
-def aboutUs(request):
-    return HttpResponse("user aboutUs")
+# def aboutUs(request):
+    # return HttpResponse("user aboutUs")
