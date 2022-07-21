@@ -10,5 +10,5 @@ urlpatterns = [
     path('eventview/', views.eventView, name='usereventview'),
     path('cart/',views.cart,name='cart'),
     path("profile/",views.profile,name="profile"),
-    path('aboutus/',views.aboutUs,name='aboutUs')
+    # path('aboutus/',views.aboutUs,name='aboutUs')
 ]
