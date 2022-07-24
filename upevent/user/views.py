@@ -5,12 +5,6 @@ from django.http import HttpResponse
 def index(request):
     return render(request ,'user/index.html')
 
-def login(request):
-    return HttpResponse("user login")
-
-def signUp(request):
-    return HttpResponse("user signup")
-
 def forgotPass(request):
     return HttpResponse("user forgotpass")
 

@@ -8,5 +8,11 @@ def index(request):
 def aboutUs(request):
     return render (request,'upevents/about.html')
 
-def log (request):
-    return HttpResponse("its log baby ")
+def login(request):
+    return HttpResponse("user login")
+
+def signUp(request):
+    return HttpResponse("user signup")
+
+def organiserlogin(request):
+    return HttpResponse("organiser login")
