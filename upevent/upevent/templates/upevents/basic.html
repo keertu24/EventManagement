@@ -36,122 +36,28 @@
                         </li>
 
                     </ul>
-                    <!-- Button trigger Login modal -->
-                    <button type="button" class="btn btn-outline-primary mx-2" data-bs-toggle="modal"
-                        data-bs-target="#loginModal">
-                        Login
-                    </button>
 
-                    <!-- Button trigger Sign UP modal -->
-                    <button type="button" class="btn btn-outline-primary mx-2" data-bs-toggle="modal"
-                        data-bs-target="#signupModal">
-                        Sign up
-                    </button>
+                    
+                    <!-- Admin button  -->
+                    <a href="/login" class="btn btn-outline-primary mx-2" type="button">Login</a>
+                    
+                    <a href="/signup" class="btn btn-outline-primary mx-2" type="button">SignUp</a>
 
                     <!-- Button trigger Organiser  modal -->
                     <button type="button" class="btn btn-outline-primary mx-2" data-bs-toggle="modal"
                         data-bs-target="#organiserModal">
                         Organiser
                     </button>
-                    <!-- Admin button  -->
+
                     <a href="/admin" class="btn btn-outline-primary mx-2" type="button">Admin</a>
+
 
                 </div>
             </div>
         </nav>
 
-        <!-- Modal for login  -->
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="loginModalLabel">Login Here</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3 form-group">
-                                <label for="username" class="form-label">User Name</label>
-                                <input type="text" class="form-control" id="username" name="username"
-                                    placeholder="Enter username ">
-                            </div>
-
-
-                            <div class="mb-3 form-group">
-                                <label for="password" class="form-label"> Password</label>
-                                <input type="password" class="form-control" id="password" name="password">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal for sign up -->
-        <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="signupModalLabel">Sign Up Here</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3 form-group">
-                                <label for="signupusername" class="form-label">User Name</label>
-                                <input type="text" class="form-control" id="signupusername" name="signupusername"
-                                    placeholder="Enter username ">
-                            </div>
-
-                            <div class="mb-3 form-group">
-                                <label for="fname" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="fname" name="fname"
-                                    placeholder="Enter First name ">
-                            </div>
-
-                            <div class="mb-3 form-group">
-                                <label for="lname" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lname" name="lname"
-                                    placeholder="Enter Last name ">
-                            </div>
-                            <div class="mb-3 form-group">
-                                <label for="mblno" class="form-label">Mobile Number</label>
-                                <input type="number" class="form-control" id="mblno" name="mblno" placeholder="Mobile ">
-                            </div>
-
-                            <div class="mb-3 form-group">
-                                <label for="email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    aria-describedby="emailHelp">
-                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
-                                </div>
-                            </div>
-                            <div class="mb-3 form-group">
-                                <label for="password1" class="form-label">Choose a Password</label>
-                                <input type="password" class="form-control" id="password1" name="password1">
-                            </div>
-                            <div class="mb-3 form-group">
-                                <label for="password2" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="password2" name="password2">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        
+        
         <!-- Modal for login for organiser  -->
         <div class="modal fade" id="organiserModal" tabindex="-1" aria-labelledby="organiserModalLabel"
             aria-hidden="true">
