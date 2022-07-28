@@ -1,0 +1,30 @@
+{% extends 'user/basic.html' %}
+{% block title %}
+Contact Us
+{% endblock title %}
+{% block contactactive %} active {% endblock contactactive %}
+{% block body %}
+<div class="container">
+    <h3 class="mt-3">Contact Us</h3>
+    <form action="/contactus/" method="POST">{% csrf_token %}
+        <div class="form-group">
+            <label for="contactname">Name</label>
+            <input type="text" class="form-control" id="contactname" name="contactname" placeholder="Enter Your Name">
+        </div>
+        <div class="form-group">
+            <label for="contactphone">Email</label>
+            <input type="email" class="form-control" id="contactemail" name="contactemail" placeholder="Enter Your Email">
+        </div>
+        <div class="form-group">
+            <label for="contactphone">Phone</label>
+            <input type="tel" class="form-control" id="contactphone" name="contactphone" placeholder="Enter Your Phone Number">
+        </div>
+
+        <div class="form-group">
+            <label for="contactdesc">How May We Help You ?</label>
+            <textarea class="form-control" id="contactdesc" name="contactdesc" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+{% endblock body %}

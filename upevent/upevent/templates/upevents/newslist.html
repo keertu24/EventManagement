@@ -1,0 +1,15 @@
+{% extends 'user/basic.html' %}
+{% block title %}
+upEvents-News
+{% endblock title %}
+ {% block newsactive %} active {% endblock newsactive %}
+ {% block body %}
+ <div class="container">
+    <h4 class="mt-4 px-2">News Section</h4>
+     {% for i in news_obj %}
+     <div class="card p-2 m-2">
+       <h5><a href="/news/{{i.news_id}}">{{i.news_id}}. {{i.title}}</a></h5>
+     </div>
+     {% endfor %}
+    </div>
+ {% endblock body %}

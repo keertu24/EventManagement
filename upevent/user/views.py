@@ -1,21 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 # Create your views here.
-def index(request):
-    return render(request ,'user/index.html')
-
-def forgotPass(request):
-    return HttpResponse("user forgotpass")
+def home(request):
+    return render(request ,'user/home.html')
 
 def eventView(request):
     return HttpResponse("user eventView")
 
 def cart(request):
-    return HttpResponse("user cart")
+    return render(request ,'user/cart.html')
 
-def profile(request):
-    return HttpResponse("user profile")
+def userprofile(request):
+    user_account
+    return render(request ,'user/userprofile.html')
 
-# def aboutUs(request):
-    # return HttpResponse("user aboutUs")
+def aboutUs(request):
+    return render(request ,'upevents/aboutus.html')

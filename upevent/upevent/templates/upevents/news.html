@@ -1,0 +1,18 @@
+{% extends 'user/basic.html' %}
+{% block title %}
+upEvents-News
+{% endblock title %}
+ {% block newsactive %} active {% endblock newsactive %}
+
+ {% block body %}
+ {% for news in news_content %}
+ <div class="container">
+    <h3 class="m-3"> {{news.title}}</h3>
+    <img src="/media/{{news.image}} " height="400px" width="100%"  alt="">
+    <p>{{news.desc}}</p>
+ </div>
+ 
+ 
+ 
+ {% endfor %}
+ {% endblock body%}

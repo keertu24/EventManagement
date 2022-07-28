@@ -1,9 +1,12 @@
+import re
 from tempfile import template
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
+from organiser.models import Contact,News
+
 
 
 # Create your views here.
@@ -12,6 +15,29 @@ def index(request):
 
 def aboutUs(request):
     return render (request,'upevents/about.html')
+
+def contactUs(request):
+    if request.method=="POST":
+        print(request)
+        name=request.POST.get('contactname', '')
+        email=request.POST.get('contactemail', '')
+        phone=request.POST.get('contactphone', '')
+        desc=request.POST.get('contactdesc', '')
+        contact = Contact(name=name, email=email, phone=phone, desc=desc)
+        contact.save()
+    return render(request, "upevents/contactus.html")
+
+def newslist(request):
+    news_obj=News.objects.all
+    #to display news and inform about the organisation 
+    return render(request,'upevents/newslist.html',{'news_obj':news_obj})
+
+def newss(request,my_id):
+    # fetch the product using id 
+    # to display news and inform about the organisation 
+    news_content=News.objects.filter(news_id=my_id)
+    print(news_content)
+    return render(request,'upevents/news.html',{'news_content':news_content})
 
 def userlogin(request):
     # user login page

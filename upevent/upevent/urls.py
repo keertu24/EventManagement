@@ -29,6 +29,9 @@ urlpatterns = [
     path('logout/',views.confirmlogout,name='userlogout'),
     path('organiserlogin/', views.organiserlogin, name='organiserLogin'),
     path("aboutus/",views.aboutUs,name='aboutus'),
+    path("contactus/",views.contactUs,name='contactus'),
+    path('newslist/',views.newslist,name='newslist'),
+    path('news/<int:my_id>',views.newss,name='news'),
     path("organiser/",include("organiser.urls")),
     path("user/",include("user.urls")),
 
