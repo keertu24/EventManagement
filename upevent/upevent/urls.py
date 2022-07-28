@@ -22,10 +22,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.index,name='index'),
-   path('login/', views.login, name='userLogin'),
+   path('login/', views.userlogin, name='userLogin'),
    path('confirmlogin/', views.confirmlogin, name='userConfirmLogin'),
     path('signup/',views.signUp,name='userSignUp'),
-    path('confirmsignup/',views.confirmsignUp,name='userSignUp'),
+    path('confirmsignup/',views.confirmsignUp,name='userconfirmSignUp'),
+    path('logout/',views.confirmlogout,name='userlogout'),
     path('organiserlogin/', views.organiserlogin, name='organiserLogin'),
     path("aboutus/",views.aboutUs,name='aboutus'),
     path("organiser/",include("organiser.urls")),

@@ -16,46 +16,54 @@
 </head>
 
 <body>
+    {% for message in messages  %}            
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          <strong>Message : </strong> {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    {% endfor %}    
     <div class=" mx-auto  " style="width:40vw ;">
         <h3 class="mt-3"> SignUp</h3>
         <div class="card ">
             <div class="card-body ">
 
-                <form method="post " action="/confirmsignup/" autocomplete="off">{% csrf_token %}
+                <form method="POST" action="/confirmsignup/" autocomplete="off">{% csrf_token %}
 
                     <div class="mb-3 form-group">
                         <label for="signupusername" class="form-label">User Name</label>
                         <input type="text" class="form-control" id="signupusername" name="signupusername"
-                            placeholder="Enter username ">
+                            placeholder="Enter username " required>
                     </div>
 
                     <div class="mb-3 form-group">
-                        <label for="fname" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First name ">
+                        <label for="signupfname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="signupfname" name="signupfname" placeholder="Enter First name " required>
                     </div>
 
                     <div class="mb-3 form-group">
-                        <label for="lname" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last name ">
+                        <label for="signuplname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="signuplname" name="signuplname" placeholder="Enter Last name " required>
                     </div>
                     <div class="mb-3 form-group">
-                        <label for="mblno" class="form-label">Mobile Number</label>
-                        <input type="number" class="form-control" id="mblno" name="mblno" placeholder="Mobile ">
+                        <label for="signupmblno" class="form-label">Mobile Number</label>
+                        <input type="number" class="form-control" id="signupmblno" name="signupmblno" placeholder="Mobile " required>
                     </div>
 
                     <div class="mb-3 form-group">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                        <label for="signupemail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="signupemail" name="signupemail" aria-describedby="emailHelp" required>
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
                         </div>
                     </div>
                     <div class="mb-3 form-group">
-                        <label for="password1" class="form-label">Choose a Password</label>
-                        <input type="password" class="form-control" id="password1" name="password1">
+                        <label for="signuppassword" class="form-label">Choose a Password</label>
+                        <input type="password" class="form-control" id="signuppassword" name="signuppassword" required>
                     </div>
                     <div class="mb-3 form-group">
-                        <label for="password2" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="password2" name="password2">
+                        <label for="signupconfirmpassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="signupconfirmpassword" name="signupconfirmpassword" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <div class="text-center">
