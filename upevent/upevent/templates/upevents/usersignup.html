@@ -12,18 +12,22 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'upevents/css/customcss.css' %}">
 
-    <title>User Login </title>
+    <title>User SignUp</title>
 </head>
 
 <body>
-    {% for message in messages  %}            
+    <!-- messages shows here any wrong values added in signup form   -->
+    {% for message in messages %}
     <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-          <strong>Message : </strong> {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-    {% endfor %}    
+        <strong>Message : </strong> {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    <!-- end of message section  -->
+
+    <!-- signup form starts here  -->
     <div class=" mx-auto  " style="width:40vw ;">
         <h3 class="mt-3"> SignUp</h3>
         <div class="card ">
@@ -39,21 +43,25 @@
 
                     <div class="mb-3 form-group">
                         <label for="signupfname" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="signupfname" name="signupfname" placeholder="Enter First name " required>
+                        <input type="text" class="form-control" id="signupfname" name="signupfname"
+                            placeholder="Enter First name " required>
                     </div>
 
                     <div class="mb-3 form-group">
                         <label for="signuplname" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="signuplname" name="signuplname" placeholder="Enter Last name " required>
+                        <input type="text" class="form-control" id="signuplname" name="signuplname"
+                            placeholder="Enter Last name " required>
                     </div>
                     <div class="mb-3 form-group">
                         <label for="signupmblno" class="form-label">Mobile Number</label>
-                        <input type="number" class="form-control" id="signupmblno" name="signupmblno" placeholder="Mobile " required>
+                        <input type="number" class="form-control" id="signupmblno" name="signupmblno"
+                            placeholder="Mobile " required>
                     </div>
 
                     <div class="mb-3 form-group">
                         <label for="signupemail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="signupemail" name="signupemail" aria-describedby="emailHelp" required>
+                        <input type="email" class="form-control" id="signupemail" name="signupemail"
+                            aria-describedby="emailHelp" required>
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
                         </div>
                     </div>
@@ -63,12 +71,13 @@
                     </div>
                     <div class="mb-3 form-group">
                         <label for="signupconfirmpassword" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="signupconfirmpassword" name="signupconfirmpassword" required>
+                        <input type="password" class="form-control" id="signupconfirmpassword"
+                            name="signupconfirmpassword" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <div class="text-center">
-                        <p>Already Registered  <a href="/login">Login</a></p>
-                      </div>
+                        <p>Already Registered <a href="/login">Login</a></p>
+                    </div>
 
                 </form>
             </div>

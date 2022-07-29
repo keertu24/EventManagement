@@ -2,17 +2,23 @@
 {% block title %}
 upEvents-News
 {% endblock title %}
- {% block newsactive %} active {% endblock newsactive %}
+{% block newsactive %} active {% endblock newsactive %}
+<!-- its just to show news content  -->
+{% block body %}
+{% for news in news_content %}
+<div class="container text-center">
+    <div class="card m-4 p-3">
+        <h3 class="m-3"> {{news.title}}</h3>
+        <div class="p-3  text-center">
+            <img src="/media/{{news.image}} " height="300px" width="70%" alt="">
+        </div>
+        <div class="text-center mt-4">
+            <pre><p>{{news.desc}}</p></pre>
+        </div>
+    </div>
+</div>
 
- {% block body %}
- {% for news in news_content %}
- <div class="container">
-    <h3 class="m-3"> {{news.title}}</h3>
-    <img src="/media/{{news.image}} " height="400px" width="100%"  alt="">
-    <p>{{news.desc}}</p>
- </div>
- 
- 
- 
- {% endfor %}
- {% endblock body%}
+
+
+{% endfor %}
+{% endblock body%}

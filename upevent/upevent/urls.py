@@ -28,6 +28,7 @@ urlpatterns = [
     path('confirmsignup/',views.confirmsignUp,name='userconfirmSignUp'),
     path('logout/',views.confirmlogout,name='userlogout'),
     path('organiserlogin/', views.organiserlogin, name='organiserLogin'),
+    path('organiserlogout/', views.organiserlogout, name='organiserLogout'),
     path("aboutus/",views.aboutUs,name='aboutus'),
     path("contactus/",views.contactUs,name='contactus'),
     path('newslist/',views.newslist,name='newslist'),

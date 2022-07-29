@@ -1,0 +1,98 @@
+<style>
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    
+    /**
+      Component
+    **/
+    
+    label {
+        width: 100%;
+    }
+    
+    .card-input-element {
+        display: none;
+    }
+    
+    .card-input {
+        margin: 10px;
+        padding: 0px;
+    }
+    
+    .card-input:hover {
+        cursor: pointer;
+    }
+    
+    .card-input-element:checked + .card-input {
+         box-shadow: 0 0 1px 1px #2e43cc;
+    }
+    
+    
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+
+    <h1>Radio Buttons as Cards</h1>
+
+    <div class="row">
+
+        <div class="col-md-4 col-lg-4 col-sm-4">
+
+            <label>
+                <input type="radio" name="product" selected checked class="card-input-element" />
+
+                <div class="card card-default card-input">
+                    <div class="card-header">Product A</div>
+                    <div class="card-body">
+                        Product specific content
+                    </div>
+                </div>
+
+            </label>
+
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-4">
+
+            <label>
+                <input type="radio" name="product" class="card-input-element" />
+
+                <div class="card card-default card-input">
+                    <div class="card-header">Product B</div>
+                    <div class="card-body">
+                        Product specific content
+                    </div>
+                </div>
+            </label>
+
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-4">
+
+            <label>
+                <input type="radio" name="product" class="card-input-element" />
+
+                <div class="card card-default card-input">
+                    <div class="card-header">Product C</div>
+                    <div class="card-body">
+                        Product specific content
+                    </div>
+                </div>
+            </label>
+
+        </div>
+    </div>
+
+</div>

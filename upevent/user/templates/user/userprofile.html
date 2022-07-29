@@ -3,6 +3,54 @@
 My Profile
 {% endblock title %}
 
+{% load static %}
 {% block body %}
-{{user.get_full_name}}
-  {% endblock body %}
+<!-- to show user details  -->
+<h2 class="mx-4 my-3">My Profile</h2>
+<div class="card container mt-2">
+  <div class="row m-2 p-2 ">
+    <div class="col-4">
+      <div class="image" >
+      <img src="{% static '/user/images/birthday.jpg' %}" alt="profile Photo" srcset="" style="border-radius: 100px; border:2px solid blue ;background-color:black; " height="200px" width="200px" class="img-responsive">
+    </div>
+    </div>
+
+    <div class="col container pt-4">
+      <table>
+        <tr>
+          <td>Username</td>
+          <td>{{user.username}}</td>
+        </tr>
+
+        <tr>
+          <td>Name</td>
+          <td>{{user.get_full_name}}</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>{{user.email}}</td>
+        </tr>
+        <tr class="mt-4" style="text-align: right;">
+          <td colspan="2">
+            <a href="/user/editprofile" class="btn btn-outline-primary mx-2" type="button">Add More Info</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- to display the user booked event  -->
+ <h2 class="m-3">Events</h2>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}

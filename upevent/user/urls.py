@@ -7,6 +7,8 @@ urlpatterns = [
     path('eventview/', views.eventView, name='usereventview'),
     path('cart/',views.cart,name='cart'),
     path('userprofile/',views.userprofile,name="userprofile"),
+    path('editprofile/',views.editprofile,name='editprofile'),
+    path('confirmeditprofile/',views.confirmeditprofile,name='confirmeditprofile')
     
     
 ]
