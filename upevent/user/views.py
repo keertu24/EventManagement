@@ -1,15 +1,34 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from organiser.models import Event,Package
+from django.template import context
 
+allcategory=[]
 # Create your views here.
 def home(request):
-    return render(request ,'user/home.html')
+    events=Event.objects.all()
+    print(events)
+    return render(request,'user/home.html',{'events':events})
 
 def eventView(request):
-    return  render(request ,'user/eventview.html')
+    # this variable to store list of package 
+    global allcategory
+    allpack=[]
+    catpack=Package.objects.values('category','package_id')
+    cats={item['category'] for item in catpack}
+    allcategory=list(cats)
+   
+
+    for cat in cats:
+        prod=Package.objects.filter(category=cat)
+        allpack.append(prod)
+    
+    return  render(request ,'user/eventview.html',{'allpack':allpack})
 
 def cart(request):
+    radio=request.POST['radio']
+    print(radio)
     return render(request ,'user/cart.html')
 
 def userprofile(request):
@@ -28,3 +47,12 @@ def editprofile(request):
 
 def confirmeditprofile(request):
     return HttpResponse(' confirm edittt')
+
+def submitpackage(request):
+    if(request.method=='POST'):
+        for i in allcategory:
+            
+                radio=request.POST.get['product'+i]
+
+    else:
+        return HttpResponse("404-Not Found")

@@ -1,0 +1,28 @@
+{% extends 'user/basic.html' %}
+{% block navitems %}
+{% if user.is_authenticated %}
+<ul class="navbar-nav mr-2">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <b class="text-capitalize">Welcome {{request.user}}</b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/user/userprofile">My Profile</a></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a class="dropdown-item" href="/logout">Logout</a></li>
+    </ul>
+  <li class="nav-item">
+    <a class="nav-link" href="/user/cart">Cart</a>
+  </li>
+  </li>
+</ul>
+{% else %}
+<!-- if user did not logged in  -->
+<!-- Login and signup button  -->
+<a href="/login" class="btn btn-outline-primary mx-2" type="button">Login</a>
+
+<a href="/signup" class="btn btn-outline-primary mx-2" type="button">SignUp</a>
+{% endif %}
+{% endblock navitems %}

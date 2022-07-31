@@ -1,5 +1,28 @@
-{% extends 'user/basic.html' %}
+{% extends 'user/basic2.html' %}
 {% block title %}
 upevents
 {% endblock title %}
 {% block homeactive %} active {% endblock homeactive %}
+{% block body %}
+
+<!-- cards show the event name and image starts here -->
+<div class="row m-4">
+{% for event in events %}
+<div class="card col-4 border-0" style="width: 18rem;">
+    <a class="card-block stretched-link text-decoration-none" href="/user/eventview">
+        <img src="https://source.unsplash.com/200x200/?" class="card-img-top" alt="..." height="200px" width="200px">
+        <div class="card-body">
+            <!-- <img src="https://source.unsplash.com/200x200/?" alt="" srcset=""> -->
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="card-title">{{event.event_title}}</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+
+            </div>
+        </div> 
+    </a>
+</div>
+{% endfor%}
+</div>
+<!-- end of card show  -->
+{% endblock body %}

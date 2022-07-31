@@ -1,98 +1,37 @@
-<style>
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    
-    
-    /**
-      Component
-    **/
-    
-    label {
-        width: 100%;
-    }
-    
-    .card-input-element {
-        display: none;
-    }
-    
-    .card-input {
-        margin: 10px;
-        padding: 0px;
-    }
-    
-    .card-input:hover {
-        cursor: pointer;
-    }
-    
-    .card-input-element:checked + .card-input {
-         box-shadow: 0 0 1px 1px #2e43cc;
-    }
-    
-    
-  </style>
-
-
-
-
-
-
-
-
-
-
+{% extends 'user/basic2.html' %}
+{% block title %}
+upevents
+{% endblock title %}
+{% block homeactive %} active {% endblock homeactive %}
+{% block body %}
 
 
 <div class="container">
-
-    <h1>Radio Buttons as Cards</h1>
-
+    <form action="/user/submitpackage/" method="post" >
+        {% csrf_token %}
+    {% for pack in allpack %}
+    <h1 class="mt-3">{{pack.0.category}}</h1>
     <div class="row">
-
+        {% for i in pack %}
         <div class="col-md-4 col-lg-4 col-sm-4">
-
             <label>
-                <input type="radio" name="product" selected checked class="card-input-element" />
-
+                <input type="radio" name="product{{pack.0.category}}" selected checked class="card-input-element" value="{{i.package_id}}" />
                 <div class="card card-default card-input">
-                    <div class="card-header">Product A</div>
-                    <div class="card-body">
-                        Product specific content
-                    </div>
-                </div>
+                    <div class="card-header">
+                        <img src="https://source.unsplash.com/200x200/?" class="card-img-top" alt="..." height="200px" width="200px">
+                        {{i.package_title}}</div>
+                    <div class="card-body p-2">
+                        {{i.package_desc}}<br>
+                        {{i.package_price}}
 
-            </label>
-
-        </div>
-        <div class="col-md-4 col-lg-4 col-sm-4">
-
-            <label>
-                <input type="radio" name="product" class="card-input-element" />
-
-                <div class="card card-default card-input">
-                    <div class="card-header">Product B</div>
-                    <div class="card-body">
-                        Product specific content
                     </div>
                 </div>
             </label>
-
         </div>
-        <div class="col-md-4 col-lg-4 col-sm-4">
-
-            <label>
-                <input type="radio" name="product" class="card-input-element" />
-
-                <div class="card card-default card-input">
-                    <div class="card-header">Product C</div>
-                    <div class="card-body">
-                        Product specific content
-                    </div>
-                </div>
-            </label>
-
-        </div>
+        {% endfor %}
     </div>
-
+    {% endfor %} 
+        <button type="submit" class="btn btn-primary btn-block my-4 mx-auto ">Add To Cart</button>
+    </form>
 </div>
+{% endblock body %}

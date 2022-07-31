@@ -1,5 +1,6 @@
 import email
 from turtle import title
+from unicodedata import category
 from django.db import models
 
 # Create your models here.
@@ -18,14 +19,14 @@ class Contact(models.Model):
 # model to maintain news section 
 class News(models.Model):
     news_id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=50)
+    news_title = models.CharField(max_length=50)
     pub_date = models.DateField()
     image = models.ImageField(upload_to='organiser/images', default="")
     desc = models.TextField(max_length=5000, default="" )
 
 
     def __str__(self):
-        return self.title
+        return self.news_title
 
 class Organiser(models.Model):
     Type_choice=(
@@ -50,6 +51,43 @@ class Organiser(models.Model):
     def __str__(self):
         return self.username
 
+class Service(models.Model):
+    service_id=models.AutoField(primary_key=True)
+    services=models.CharField(max_length=100)
+
+    def __str__(self) :
+        return self.services
     
+    class Meta:
+        ordering=['services']
+
+class Event(models.Model):
+    event_id=models.AutoField(primary_key=True)
+    event_title=models.CharField(max_length=50,default="")
+    category=models.ManyToManyField(Service)
+    event_image=models.ImageField(upload_to='Event/images', default="")
+    event_desc=models.TextField(max_length=300, default="" )
+    
+    def __str__(self) :
+        return self.event_title
+
+class Package(models.Model):
+    Type_choice=(
+        ('FOOD','FOOD'),
+        ('DECORATION','DECORATION'),
+        ('MUSIC','MUSIC'),
+        ('LIGHTING','LIGHTING'),
+        ('STAGE PROGRAM','STAGE PROGRAM')
+    )
+    package_id=models.AutoField(primary_key=True)
+    package_title=models.CharField(max_length=50,default="")
+    category=models.CharField(max_length=30,choices=Type_choice,default='MUSIC')
+    package_image=models.ImageField(upload_to='Package/images', default="")
+    package_desc=models.TextField(max_length=300, default="" )
+    package_price=models.IntegerField(default=10000)
+
+    def __str__(self) :
+        return self.package_title
+
 
     

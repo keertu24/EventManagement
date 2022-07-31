@@ -15,12 +15,12 @@
 
 <body>
   {% load static %}
-  <h1>Edit Profile</h1>
-  <form action="" method="post" action="/user/confirmeditprofile/" enctype="multipart/form-data">
+  <h1 class="mt-4 mx-4 ">Edit Profile</h1>
+  <form action="" method="post" action="/user/confirmeditprofile/" enctype="multipart/form-data" id="myform">
     {% csrf_token %}
-    <div class="container">
-      <div class="row justify-content-around">
-        <div class="col-3 border border-primary p-3">
+    <div class="container mb-4">
+      <div class="row justify-content-around my-4">
+        <div class="col-3  p-3">
           <img src="{% static '/user/images/birthday.jpg' %}" alt="profile Photo" srcset=""
             style="border-radius: 100px; border:2px solid blue ;background-color:black; " height="200px" width="200px"
             class="img-responsive">
@@ -30,7 +30,7 @@
           </div>
         </div>
         <!-- right side grid column -->
-        <div class="col-6 border border-primary">
+        <div class="col-6 ">
           <div class="mb-3 form-group">
             <label for="signupusername" class="form-label">User Name</label>
             <input type="text" class="form-control" id="signupusername" name="signupusername"
@@ -52,29 +52,34 @@
           <div class="mb-3 form-group">
             <label for="signupemail" class="form-label">Email address</label>
             <input type="email" class="form-control" id="signupemail" name="signupemail" aria-describedby="emailHelp"
-              required>
+              required value="{{request.user.email}}">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
             </div>
           </div>
 
           <div class="mb-3 form-group">
             <label for="signupmblno" class="form-label">Mobile Number</label>
-            <input type="number" class="form-control" id="signupmblno" name="signupmblno" placeholder="Mobile "
+            <input type="number" class="form-control" id="mblno" name="mblno" placeholder="Mobile "
               required>
+             <div id="phone_error" class="error hidden" Please enter a valid phone number></div>
           </div>
 
          <div class="mb-3 form-group">
             <label for="signupmblno" class="form-label">Date Of Birth</label>
-            <input type="Date" class="form-control" id="signupmblno" name="signupmblno" placeholder="Mobile "
+            <input type="Date" class="form-control" id="signupmbln" name="signupmblno" placeholder="Mobile "
               required>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col text-right mx-4 mt-4">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="col-8 text-right mx-2 mt-4">
+        <a href="/user/userprofile" class="btn btn-outline-primary mx-2" type="button">Cancel</a>
       </div>
+      <div class="col-3 mx-2 mt-4">
+        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+      
+    </div>
     </div>
   </form>
 
@@ -89,6 +94,27 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+    <script type="javascript">
+      function validatePhoneNumber(input_str) {
+        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+      
+        return re.test(input_str);
+      }
+      function validateForm(event) {
+        var phone = document.getElementById('mblno').value;
+        if (!validatePhoneNumber(phone)) {
+      
+      document.getElementById('phone_error').classList.remove('hidden');
+        } else {
+      
+      document.getElementById('phone_error').classList.add('hidden');
+          alert("validation success")
+        }
+        event.preventDefault();
+      }
+      
+      document.getElementById('myform').addEventListener('submit', validateForm);
+    </script>
 </body>
 
 </html>
