@@ -17,9 +17,6 @@ def eventView(request):
     allpack=[]
     catpack=Package.objects.values('category','package_id')
     cats={item['category'] for item in catpack}
-    allcategory=list(cats)
-   
-
     for cat in cats:
         prod=Package.objects.filter(category=cat)
         allpack.append(prod)
@@ -50,9 +47,18 @@ def confirmeditprofile(request):
 
 def submitpackage(request):
     if(request.method=='POST'):
-        for i in allcategory:
+        radio =request.POST.getlist['item_category[]']
+        print(radio)
+        # catpack=Package.objects.values('category')
+        # cats=[item['category'] for item in catpack]
+        # for cat in cats:
+        #     print('product_%s'%cat)
+        #     nameof='product_%s'%cat
+        #     radio=request.POST.getlist[nameof]
+        #     print(radio)
+    #     for i in allcategory:
             
-                radio=request.POST.get['product'+i]
+    #             radio=request.POST.get['product'+i]
 
     else:
         return HttpResponse("404-Not Found")
