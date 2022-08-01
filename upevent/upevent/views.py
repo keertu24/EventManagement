@@ -5,12 +5,14 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
-from organiser.models import Contact,News,Organiser
+from organiser.models import Contact,News,Organiser,Event
 
 
 # Create your views here.
 def index(request):
-    return render(request,'upevents/index.html')
+    events=Event.objects.all()
+
+    return render(request,'upevents/index.html',{'events':events})
 
 def userlogin(request):
     # user login page

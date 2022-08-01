@@ -8,9 +8,10 @@ urlpatterns = [
     path('eventview/', views.eventView, name='usereventview'),
     path('cart/',views.cart,name='cart'),
     path('userprofile/',views.userprofile,name="userprofile"),
-    path('editprofile/',views.editprofile,name='editprofile'),
-    path('confirmeditprofile/',views.confirmeditprofile,name='confirmeditprofile'),
-    path('submitpackage/',views.submitpackage,name='submitpackage')
+    path('addprofile/',views.addprofile,name='addprofile'),
+    path('confirmaddprofile/',views.confirmaddprofile,name='confirmaddprofile'),
+    path('submitpackage/',views.submitpackage,name='submitpackage'),
+    path('clearcart/',views.clearcart,name='clearcart')
     
     
 ]

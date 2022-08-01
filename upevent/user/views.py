@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from organiser.models import Event,Package
+from user.models import Cart
 from django.template import context
 
 allcategory=[]
@@ -24,9 +26,18 @@ def eventView(request):
     return  render(request ,'user/eventview.html',{'allpack':allpack})
 
 def cart(request):
-    radio=request.POST['radio']
-    print(radio)
-    return render(request ,'user/cart.html')
+    owner=request.user
+    user_cart=Cart.objects.filter(user_name=owner)
+    user_cart_items=[]
+    select_pack_to_template=[]
+    for i in user_cart:
+        user_cart_items=i.food_choice,i.music_choice,i.stage_choice,i.decor_choice,i.light_choice
+    print(user_cart_items)
+    for i in user_cart_items:
+        user_cart_items_selected=Package.objects.filter(package_id=i)
+        print(user_cart_items_selected)
+        select_pack_to_template.append(user_cart_items_selected)
+    return render(request ,'user/cart.html',{'user_cart':select_pack_to_template})
 
 def userprofile(request):
     user_account=request.user
@@ -39,26 +50,43 @@ def userprofile(request):
 def aboutUs(request):
     return render(request ,'upevents/aboutus.html')
 
-def editprofile(request):
-    return render(request ,'user/editprofile.html')
+def addprofile(request):
+    return render(request ,'user/addprofile.html')
 
-def confirmeditprofile(request):
+def confirmaddprofile(request):
     return HttpResponse(' confirm edittt')
 
 def submitpackage(request):
-    if(request.method=='POST'):
-        radio =request.POST.getlist['item_category[]']
-        print(radio)
-        # catpack=Package.objects.values('category')
-        # cats=[item['category'] for item in catpack]
-        # for cat in cats:
-        #     print('product_%s'%cat)
-        #     nameof='product_%s'%cat
-        #     radio=request.POST.getlist[nameof]
-        #     print(radio)
-    #     for i in allcategory:
-            
-    #             radio=request.POST.get['product'+i]
+    # not dynamic its just static 
 
+    if(request.method=='POST'):
+        musicchoice=request.POST.get('MUSIC')
+        foodchoice=request.POST.get('FOOD')
+        decorchoice=request.POST.get('DECORATION')
+        lightchoice=request.POST.get('LIGHTING')
+        stagechoice=request.POST.get('STAGE PROGRAM')   
+        print('Music',musicchoice)
+        print('Food',foodchoice)
+        print('Decor',decorchoice)
+        print('light',lightchoice)
+        print('Stage',stagechoice)
+        owner=request.user
+        try:
+            user_cart=Cart(user_name=owner,music_choice=musicchoice,food_choice=foodchoice,decor_choice=decorchoice,light_choice=lightchoice,stage_choice=stagechoice)
+            user_cart.save()
+            messages.success(request,'Cart Item Added Successfully ')
+            return redirect('/user')
+        except:
+            messages.error(request,'Please Clear Your Cart Before Adding new item')
+            return redirect('/user')
+
+        
     else:
         return HttpResponse("404-Not Found")
+
+def clearcart(request):
+    owner=request.user 
+    clearcart=Cart.objects.filter(user_name=owner)
+    clearcart.delete()
+    messages.success(request,'Cart cleared')
+    return redirect('/user')
