@@ -10,8 +10,10 @@ urlpatterns = [
     path('userprofile/',views.userprofile,name="userprofile"),
     path('addprofile/',views.addprofile,name='addprofile'),
     path('confirmaddprofile/',views.confirmaddprofile,name='confirmaddprofile'),
+    path('editprofile/',views.editprofile,name='editprofile'),
+    path('confirmeditprofile/',views.confirmeditprofile,name='confirmeditprofile'),
     path('submitpackage/',views.submitpackage,name='submitpackage'),
-    path('clearcart/',views.clearcart,name='clearcart')
-    
+    path('clearcart/',views.clearcart,name='clearcart'),
+    path('checkout/',views.checkout,name='checkout')
     
 ]

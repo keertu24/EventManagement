@@ -5,14 +5,39 @@ My Profile
 
 {% load static %}
 {% block body %}
+{% if user.is_authenticated %}
 <!-- to show user details  -->
-<h2 class="mx-4 my-3">My Profile</h2>
-<div class="card container mt-2">
+<div class="row mx-4 my-3 justify-content-between">
+<div class="col-4">
+<h2 class="">My Profile</h2>
+</div>
+<div class="col-4 ">
+<a href="/logout" class="btn btn-outline-primary mx-2" type="button">Logout</a>
+</div>
+</div>
+<div class="card container mt-2 border-0">
   <div class="row m-2 p-2 ">
     <div class="col-4">
-      <div class="image" >
-      <img src="{% static '/user/images/birthday.jpg' %}" alt="profile Photo" srcset="" style="border-radius: 100px; border:2px solid blue ;background-color:black; " height="200px" width="200px" class="img-responsive">
-    </div>
+      <div class="image">
+        {% if user_image %}
+        {% for userinfo in user_image %}
+        {% if userinfo.user_image %}
+        <img src="{{userinfo.user_image}}" style="border-radius: 100px; border:2px solid blue ;background-color:black; "
+          height="200px" width="200px" class="img-responsive">
+          {% else %}
+          <!-- shown when there is user infomation but no image updated -->
+          <img src="{% static '/user/images/birthday.jpg' %}"
+          style="border-radius: 100px; border:2px solid blue ;background-color:black; " height="200px" width="200px"
+          class="img-responsive">
+          {% endif %}
+          {% endfor %}
+          {% else %}
+          <!-- shown when there is user did not add more information  -->
+          <img src="{% static '/user/images/birthday.jpg' %}"
+          style="border-radius: 100px; border:2px solid blue ;background-color:black; " height="200px" width="200px"
+          class="img-responsive">
+        {% endif %}
+      </div>
     </div>
 
     <div class="col container pt-4">
@@ -39,10 +64,16 @@ My Profile
       </table>
     </div>
   </div>
+
 </div>
 
 <!-- to display the user booked event  -->
- <h2 class="m-3">Events</h2>
+<h2 class="m-3">Events</h2>
 
-
+{% else %}
+<h3 class="text-center my-4">Please Log in</h3>
+<div class="container my-4 text-center">
+<a href="/login" class="btn btn-outline-primary mx-2 " type="button">Login</a>
+</div>
+{%endif%}
 {% endblock body %}
