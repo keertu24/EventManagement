@@ -5,11 +5,12 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from organiser.models import Event,Package
 from user.models import UserProfile
-from user.models import Cart
+from user.models import Cart,Order
 from django.core.files.storage import FileSystemStorage
 from django.template import context
+import simplejson as json 
 
-
+cart_items=[]
 # Create your views here.
 def home(request):
     events=Event.objects.all()
@@ -27,6 +28,7 @@ def eventView(request):
     return  render(request ,'user/eventview.html',{'allpack':allpack})
 
 def cart(request):
+    global cart_items
     owner=request.user
     user_cart=Cart.objects.filter(user_name=owner)# getting list of the selected items in cart
     user_cart_items=[]# it saves the id of each cart item and also to get only some value 
@@ -36,6 +38,7 @@ def cart(request):
     for i in user_cart_items:
         user_cart_items_selected=Package.objects.filter(package_id=i)
         select_pack_to_template.append(user_cart_items_selected)#appending to list of item 
+    cart_items=user_cart_items
     return render(request ,'user/cart.html',{'user_cart':select_pack_to_template})
 
 def userprofile(request):
@@ -139,8 +142,6 @@ def submitpackage(request):
         except:
             messages.error(request,'Please Clear Your Cart Before Adding new item')
             return redirect('/user')
-
-        
     else:
         return HttpResponse("404-Not Found")
 
@@ -152,14 +153,57 @@ def clearcart(request):
     return redirect('/user')
 
 def checkout(request):
-    owner=request.user
-    user_cart=Cart.objects.filter(user_name=owner)# getting list of the selected items in cart
-    user_cart_items=[]# it saves the id of each cart item and also to get only some value 
-    select_pack_to_template=[]# it send the selected item information that store in the package table 
-    for i in user_cart:
-        user_cart_items=i.food_choice,i.music_choice,i.stage_choice,i.decor_choice,i.light_choice #selecting only 5 items and avoiding rest of details 
-    for i in user_cart_items:
-        user_cart_items_selected=Package.objects.filter(package_id=i)
-        select_pack_to_template.append(user_cart_items_selected)#appending to list of item 
-    return render(request ,'user/checkout.html',{'user_cart':select_pack_to_template})
+    global cart_items
+    if cart_items:
+        owner=request.user
+        user_cart=Cart.objects.filter(user_name=owner)# getting list of the selected items in cart
+        user_cart_items=[]# it saves the id of each cart item and also to get only some value 
+        select_pack_to_template=[]# it send the selected item information that store in the package table 
+        for i in user_cart:
+            user_cart_items=i.food_choice,i.music_choice,i.stage_choice,i.decor_choice,i.light_choice #selecting only 5 items and avoiding rest of details 
+        cart_items=user_cart_items
+        for i in user_cart_items:
+            user_cart_items_selected=Package.objects.filter(package_id=i)
+            select_pack_to_template.append(user_cart_items_selected)#appending to list of item 
+        sum=0
+        for i in select_pack_to_template:
+            for j in i :
+                sum=sum+j.package_price
+        print(sum)
+        return render(request ,'user/checkout.html',{'user_cart':select_pack_to_template})
+    else:
+        return HttpResponse("No iem in your cart ")
     
+def confirmcheckout(request):
+    # also check for empty cart items 
+    if request.method=='POST':
+        fname=request.POST.get('checkoutfname')
+        lname=request.POST.get('checkoutlname')
+        full_name=fname+" "+lname
+        invite_pic=request.FILES.get('checkoutpic')
+        fs=FileSystemStorage()
+        filename=fs.save(invite_pic.name, invite_pic)
+        url =fs.url(filename)
+        owner=request.user
+        # Adding records to the order table 
+        order_object=Order(user_name=owner,name=full_name,
+        mbl_no=request.POST.get('checkoutmblno'),
+        email=request.POST.get('checkoutemail'),
+        date=request.POST.get('checkoutdate'),
+        time=request.POST.get('checkouttime'),
+        est_people=request.POST.get('checkoutpeople'),
+        venue=request.POST.get('checkoutvenue'),
+        venue_address=request.POST.get('checkoutaddress'),
+        venue_pin=request.POST.get('checkoutpin'),
+        est_cost=request.POST.get('estcost'),invite_image=url,
+        order_items=json.dumps(cart_items)
+        )
+        order_object.save()
+        clearcart=Cart.objects.filter(user_name=owner)
+        clearcart.delete()
+        messages.success(request,'Order Placed')
+        return redirect('/user')
+        
+        # print(fname,lname,mbl_no,email,date,time,est_people,venue,venue_address,venue_pin,est_cost,invite_pic)
+    else:
+        return HttpResponse("404-Not found")

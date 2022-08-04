@@ -22,3 +22,22 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user_name
+
+class Order(models.Model):
+    order_id=models.AutoField(primary_key=True)
+    user_name=models.CharField(max_length=30)
+    name=models.CharField(max_length=70)
+    mbl_no=models.CharField(max_length=70)
+    email=models.CharField(max_length=70)
+    date=models.DateField()
+    time=models.CharField(max_length=70)
+    est_people=models.IntegerField()
+    venue=models.CharField(max_length=70)
+    venue_address=models.CharField(max_length=300)
+    venue_pin=models.CharField(max_length=70)
+    est_cost=models.IntegerField()
+    invite_image=models.URLField()
+    order_items=models.TextField(default='')
+
+    def __str__(self):
+        return self.user_name

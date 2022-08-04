@@ -14,6 +14,7 @@ urlpatterns = [
     path('confirmeditprofile/',views.confirmeditprofile,name='confirmeditprofile'),
     path('submitpackage/',views.submitpackage,name='submitpackage'),
     path('clearcart/',views.clearcart,name='clearcart'),
-    path('checkout/',views.checkout,name='checkout')
+    path('checkout/',views.checkout,name='checkout'),
+    path('confirmcheckout/',views.confirmcheckout,name='confirmcheckout')
     
 ]
