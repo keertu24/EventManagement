@@ -13,20 +13,23 @@
     <link rel="stylesheet" href="{% static 'user/css/customcss.css' %}">
     <!-- animate class link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
+  {% block style %}
+    <style>
     td {
       width: 269px;
       height: 60px;
     }
   </style>
+  {% endblock style %}
   <title>
     {% block title%}
     {% endblock title%}
   </title>
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body {% block bg-img %}
+{% endblock bg-img %} >
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">upevents</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -70,9 +73,39 @@
   {% block body %}
   {% endblock body %}
   <!-- FOOTER -->
-  <footer class="container">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2017–2022 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  <footer class="bg-primary text-white mb-3 p-3" >
+    <div class="row ">
+      <div class="col "><p>Email Id: upevents@gmail.com
+      </p>
+      </div>
+      <div class="col   ">
+        <a href="" class="text-white">About Us</a>
+      </div>
+      <div class="col ">Address:</div>
+      <div class="col "></div>
+  </div>
+  <div class="row ">
+    <div class="col  ">
+      <p>     Contact :+91 82177 16758</p>
+    </div>
+    <div class="col  ">
+      <a href="" class="text-white">Contact Us</a>
+    </div>
+    <div class="col  "><p> upevents ,Puttur Near Govt. Bus Stand</p></div>
+    <div class="col  "></div>
+</div>
+<div class="row ">
+  <div class="col  ">
+    <p>Location : Puttur,DK</p>
+  </div>
+  <div class="col  ">
+    <a href="" class="text-white">News </a>
+  </div>
+  <div class="col  "><p>Dakshina Kannada,Karnataka-574324</p></div>
+  <div class="col  "></div>
+</div>
+    <p class="float-end"><a href="#" class="text-white">Back to top</a></p>
+    <p>&copy; 2021–2023 All Rights reserved  &middot; <a href="#" class="text-white">Privacy</a> &middot; <a href="#" class="text-white">Terms</a></p>
   </footer>
 
   <!-- Optional JavaScript; choose one of the two! -->

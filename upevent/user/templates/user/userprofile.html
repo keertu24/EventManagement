@@ -1,39 +1,42 @@
 {% extends 'user/basic.html' %}
+{% load static %}
 {% block title %}
 My Profile
 {% endblock title %}
-
+{% block bg-img %}
+style="background-image: url({% static 'user/images/background/bg-profile.jpg' %}); " 
+{% endblock bg-img %}
 {% load static %}
 {% block body %}
 {% if user.is_authenticated %}
 <!-- to show user details  -->
-<div class="row mx-4 my-3 justify-content-between">
-<div class="col-4">
-<h2 class="">My Profile</h2>
+<div class="row mx-4 my-3 justify-content-between ">
+  <div class="col-4">
+    <h2 class="">My Profile</h2>
+  </div>
+  <div class="col-4 ">
+    <a href="/logout" class="btn btn-dark mx-2" type="button">Logout</a>
+  </div>
 </div>
-<div class="col-4 ">
-<a href="/logout" class="btn btn-outline-primary mx-2" type="button">Logout</a>
-</div>
-</div>
-<div class="card container mt-2 border-0">
-  <div class="row m-2 p-2 ">
+<div class="card container mt-2 border-0 shadow-lg rounded">
+  <div class="row m-2 p-3 ">
     <div class="col-4">
-      <div class="image">
+      <div class="image pt-4">
         {% if user_image %}
         {% for userinfo in user_image %}
         {% if userinfo.user_image %}
         <img src="{{userinfo.user_image}}" style="border-radius: 100px; border:2px solid blue ;background-color:black; "
           height="200px" width="200px" class="img-responsive">
-          {% else %}
-          <!-- shown when there is user infomation but no image updated -->
-          <img src="{% static '/user/images/birthday.jpg' %}"
+        {% else %}
+        <!-- shown when there is user infomation but no image updated -->
+        <img src="{% static '/user/images/birthday.jpg' %}"
           style="border-radius: 100px; border:2px solid blue ;background-color:black; " height="200px" width="200px"
           class="img-responsive">
-          {% endif %}
-          {% endfor %}
-          {% else %}
-          <!-- shown when there is user did not add more information  -->
-          <img src="{% static '/user/images/birthday.jpg' %}"
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <!-- shown when there is user did not add more information  -->
+        <img src="{% static '/user/images/birthday.jpg' %}"
           style="border-radius: 100px; border:2px solid blue ;background-color:black; " height="200px" width="200px"
           class="img-responsive">
         {% endif %}
@@ -68,12 +71,49 @@ My Profile
 </div>
 
 <!-- to display the user booked event  -->
-<h2 class="m-3">Events</h2>
+<div class="shadow-lg rounded  p-4 m-4 border border-dark bg-white" >
+<h2 class="m-3">Events:Upcoming</h2>
+<!-- events that are upcoming  -->
+{% for i in order_items_coming %}
+<div class="card p-4 m-2 " style="background-color:#81C784;">
+  <div class="row">
+    <div class="col ">
+      <a href="/user/orderinfo/{{i.order_id}}" class="text-white"> Order ID: {{i.order_id}}
+      </a>
+    </div>
+    <div class="col">{{i.date}}</div>
+    <div class="col">{{i.time}}</div>
+    <div class="col">{{i.venue}}</div>
+    <div class="col">{{i.est_cost}}</div>
+    <div class="col">{{i.order_id}}</div>
+  </div>
+</div>
+{% endfor %}
+</div>
+<div class="shadow-lg rounded p-4 m-4 border border-dark bg-white">
+<h2 class="m-3">Events:Completed</h2>
+<!-- event that are over  -->
 
+{% for i in order_items_over %}
+<div class="card p-4 m-2 " style="background-color: #E57373;">
+  <div class="row">
+    <div class="col ">
+      <a href="/user/orderinfo/{{i.order_id}}" class="text-white"> Order ID: {{i.order_id}}
+      </a>
+    </div>
+    <div class="col">{{i.date}}</div>
+    <div class="col">{{i.time}}</div>
+    <div class="col">{{i.venue}}</div>
+    <div class="col">{{i.est_cost}}</div>
+    <div class="col">{{i.order_id}}</div>
+  </div>
+</div>
+{% endfor %}
+</div>
 {% else %}
 <h3 class="text-center my-4">Please Log in</h3>
 <div class="container my-4 text-center">
-<a href="/login" class="btn btn-outline-primary mx-2 " type="button">Login</a>
+  <a href="/login" class="btn btn-outline-primary mx-2 " type="button">Login</a>
 </div>
 {%endif%}
 {% endblock body %}

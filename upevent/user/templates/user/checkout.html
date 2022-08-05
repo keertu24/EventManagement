@@ -14,98 +14,122 @@
 </head>
 
 <body>
-    <h1>Checkout </h1>
-    <h4>Your cart Items :</h4>
-    {%for cart in user_cart %}
-    {%for item in cart %}
-    <div class="container">
-        <div class="row text-center p-2">
-            <div class="col">{{item.category}}</div>
-            <div class="col">{{item.package_title}}</div>
-            <div class="col">{{item.package_price}}</div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/user">upevents</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
         </div>
-    </div>
-    {%endfor%}
-    {%endfor%}
-    <h4 class="mt-4">Enter Your Booking Details:</h4>
-    <div class="container my-4">
-        <form action="/user/confirmcheckout/" method="post" enctype="multipart/form-data">
-            {% csrf_token %} 
-            <div class="row mt-3">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="First name" id="checkoutfname" name="checkoutfname"
-                    aria-label="First name" required >
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" id="checkoutlname" name="checkoutlname" required >
-                </div>
+    </nav>
+    {% if user.is_authenticated %}
+    <div class="container">
+        <h1>Checkout </h1>
+        <h4>Your cart Items :</h4>
+        {%for cart in user_cart %}
+        {%for item in cart %}
+        <div class="container">
+            <div class="row text-center p-2">
+                <div class="col">{{item.category}}</div>
+                <div class="col">{{item.package_title}}</div>
+                <div class="col">{{item.package_price}}</div>
             </div>
-            <div class="row mt-3">
-                <div class="col">
-                    <input type="Number" class="form-control" placeholder="Contact" aria-label="" id="checkoutmblno" name="checkoutmblno"  required >
-                </div>
-                <div class="col">
-                    <input type="Email" class="form-control" placeholder="Email ID" aria-label="" id="checkoutemail" name="checkoutemail" required>
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col">
-                    <input type="date" class="form-control" placeholder="Date" 
-                    id="checkoutdate" name="checkoutdate" aria-label="">
-                </div>
-                <div class="col">
-                    <input type="time" class="form-control" name="checkouttime" id="checkouttime" required>
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-6">
-                    <input type="Number" class="form-control" placeholder="Estimated People" aria-label="" id="checkoutpeople" name="checkoutpeople" required>
-                </div>
-                <div class="col">
-                    <div>
-                        <button class="btn btn-primary mx-2" type="button" id="calculate" value="0">Calculate </button>
+        </div>
+        {%endfor%}
+        {%endfor%}
+        <h4 class="mt-4">Enter Your Booking Details:</h4>
+        <div class="container my-4">
+            <form action="/user/confirmcheckout/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row mt-3">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="First name" id="checkoutfname"
+                            name="checkoutfname" aria-label="First name" required>
                     </div>
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col">
-                    <label for="venue" class="form-label">Enter the Venue</label>
-                    <input type="text" id="checkoutvenue" name="checkoutvenue" class="form-control" placeholder="Venue" required>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Last name" aria-label="Last name"
+                            id="checkoutlname" name="checkoutlname" required>
+                    </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col">
-                        <label for="address" class="form-label">Address of the Venue</label>
-                        <input type="text" class="form-control" placeholder="Address of the Venue" id="checkoutaddress"
-                            aria-label="" name="checkoutaddress" required>
+                        <input type="Number" class="form-control" placeholder="Contact" aria-label="" id="checkoutmblno"
+                            name="checkoutmblno" required>
                     </div>
+                    <div class="col">
+                        <input type="Email" class="form-control" placeholder="Email ID" aria-label="" id="checkoutemail"
+                            name="checkoutemail" required>
+                    </div>
+                </div>
 
+                <div class="row mt-3">
+                    <div class="col">
+                        <input type="date" class="form-control" placeholder="Date" id="checkoutdate" name="checkoutdate"
+                            aria-label="">
+                    </div>
+                    <div class="col">
+                        <input type="time" class="form-control" name="checkouttime" id="checkouttime" required>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label for="checkoutpeople" class="form-label">Estimated People</label>
+                        <input type="Number" class="form-control" placeholder="Estimated People" aria-label=""
+                            id="checkoutpeople" name="checkoutpeople" required>
+                    </div>
+                    <div class="col">
+                        <input type="hidden" class="form-control" name="pretotal" id="pretotal" value="{{sum}} "
+                            required>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <label for="venue" class="form-label">Enter the Venue</label>
+                        <input type="text" id="checkoutvenue" name="checkoutvenue" class="form-control"
+                            placeholder="Venue" required>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="checkoutaddress" class="form-label">Address of the Venue</label>
+                            <input type="text" class="form-control" placeholder="Address of the Venue"
+                                id="checkoutaddress" aria-label="" name="checkoutaddress" required>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <label for="venue" class="form-label">Enter the Pin Code </label>
-                        <input type="text" id="checkoutpin" name="checkoutpin" class="form-control" placeholder="Enter Pincode" required >
+                        <label for="checkoutpin" class="form-label">Enter the Pin Code </label>
+                        <input type="text" id="checkoutpin" name="checkoutpin" class="form-control"
+                            placeholder="Enter Pincode" required>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col">
-                        <label for="venue" class="form-label">Estimated Cost </label>
-                        <input type="text" id="estcost" name="estcost" class="form-control"  required>
+                        <label for="estcost" class="form-label">Estimated Cost </label>
+                        <input type="text" id="estcost" name="estcost" class="form-control" required readonly>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <label for="profilepic"> Upload Invitation Photo Or Pdf</label>
-                    <input type="file" name="checkoutpic" id="checkoutpic" required >
+                    <label for="checkoutpic"> Upload Invitation Photo Or Pdf</label>
+                    <input type="file" name="checkoutpic" id="checkoutpic" required>
                 </div>
                 <div class="mt-3">
                     <input type="submit" value="Submit" class="btn btn-primary btn-block">
                 </div>
 
-        </form>
+            </form>
+        </div>
     </div>
-
+    {% else %}
+    <h3 class="text-center my-4">Please Log in</h3>
+    <div class="container my-4 text-center">
+    <a href="/login" class="btn btn-outline-primary mx-2 " type="button">Login</a>
+    </div>
+    {%endif%}
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -119,7 +143,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     -->
     <script>
-      
+
+        let estpeople = 0
+        let inputel = document.getElementById("checkoutpeople")
+        inputel.addEventListener('change', (e) => {
+            estpeople = parseInt(e.target.value);
+            console.log(estpeople)
+            let pretotal = 0
+            let total = 0
+            pretotal = parseInt(document.getElementById('pretotal').value);
+            if (estpeople < 200) {
+                console.log('111')
+                total = pretotal + estpeople * 200;
+            }
+            else if (estpeople >= 200 && estpeople <= 500) {
+                total = pretotal + 200 * 200 + (estpeople - 200) * 500;
+            }
+            else {
+                total = pretotal + 200 * 200 + 300 * 500 + (estpeople - 500) * 600;
+            }
+            console.log(total)
+            estcost = document.getElementById('estcost');
+            estcost.value = total;
+        })
+
     </script>
 </body>
 

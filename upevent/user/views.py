@@ -1,14 +1,18 @@
 
+from cgi import print_form
+from datetime import date, datetime
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from organiser.models import Event,Package
+from user.function import usercartproduct
 from user.models import UserProfile
 from user.models import Cart,Order
 from django.core.files.storage import FileSystemStorage
 from django.template import context
-import simplejson as json 
+import json 
+from user.function import usercart
 
 cart_items=[]
 # Create your views here.
@@ -30,20 +34,24 @@ def eventView(request):
 def cart(request):
     global cart_items
     owner=request.user
-    user_cart=Cart.objects.filter(user_name=owner)# getting list of the selected items in cart
-    user_cart_items=[]# it saves the id of each cart item and also to get only some value 
-    select_pack_to_template=[]# it send the selected item information that store in the package table 
-    for i in user_cart:
-        user_cart_items=i.food_choice,i.music_choice,i.stage_choice,i.decor_choice,i.light_choice #selecting only 5 items and avoiding rest of details 
-    for i in user_cart_items:
-        user_cart_items_selected=Package.objects.filter(package_id=i)
-        select_pack_to_template.append(user_cart_items_selected)#appending to list of item 
-    cart_items=user_cart_items
+    # user_cart=Cart.objects.filter(user_name=owner)# getting list of the selected items in cart
+    # user_cart_items=[]# it saves the id of each cart item and also to get only some value 
+    select_pack_to_template=usercartproduct(owner)# it send the selected item information that store in the package table 
+    # for i in user_cart:
+    #     user_cart_items=i.food_choice,i.music_choice,i.stage_choice,i.decor_choice,i.light_choice #selecting only 5 items and avoiding rest of details 
+    # for i in user_cart_items:
+    #     user_cart_items_selected=Package.objects.filter(package_id=i)
+    #     select_pack_to_template.append(user_cart_items_selected)#appending to list of item 
+    # cart_items=user_cart_items
     return render(request ,'user/cart.html',{'user_cart':select_pack_to_template})
 
 def userprofile(request):
+    dateoftoday=date.today()
+    order_items_over=Order.objects.filter(user_name=request.user,date__lte=dateoftoday)
+    order_items_coming=Order.objects.filter(user_name=request.user,date__gt=dateoftoday)
+    print(order_items_over,order_items_coming)
     userprofile=UserProfile.objects.filter(user_name=request.user)
-    return render(request ,'user/userprofile.html',{'user_image':userprofile})
+    return render(request ,'user/userprofile.html',{'user_image':userprofile,'order_items_over':order_items_over,'order_items_coming':order_items_coming})
 
 def aboutUs(request):
     return render(request ,'upevents/aboutus.html')
@@ -93,11 +101,12 @@ def confirmeditprofile(request):
         mbl_no=request.POST.get('editprofilemblno')
         dob=request.POST.get('editprofiledob')
         gender=request.POST.get('editprofilegenderradio')
-        user_image=request.POST.get('editprofilepic')
+        user_image=request.FILES.get('editprofilepic')
         try:
             # handling the image url 
             update_user_profile=UserProfile.objects.get(user_name=owner)
             if user_image:
+                print("sgrgherher")
                 fs=FileSystemStorage()
                 filename=fs.save(user_image.name, user_image)
                 url =fs.url(filename)
@@ -153,26 +162,25 @@ def clearcart(request):
     return redirect('/user')
 
 def checkout(request):
-    global cart_items
-    if cart_items:
+        global cart_items
         owner=request.user
-        user_cart=Cart.objects.filter(user_name=owner)# getting list of the selected items in cart
-        user_cart_items=[]# it saves the id of each cart item and also to get only some value 
-        select_pack_to_template=[]# it send the selected item information that store in the package table 
-        for i in user_cart:
-            user_cart_items=i.food_choice,i.music_choice,i.stage_choice,i.decor_choice,i.light_choice #selecting only 5 items and avoiding rest of details 
-        cart_items=user_cart_items
-        for i in user_cart_items:
-            user_cart_items_selected=Package.objects.filter(package_id=i)
-            select_pack_to_template.append(user_cart_items_selected)#appending to list of item 
-        sum=0
+        # user_cart=Cart.objects.filter(user_name=owner)# getting list of the selected items in cart
+        # user_cart_items=[]# it saves the id of each cart item and also to get only some value 
+        select_pack_to_template=usercartproduct(owner=owner)# it send the selected item information that store in the package table 
+        # for i in user_cart:
+        #     user_cart_items=i.food_choice,i.music_choice,i.stage_choice,i.decor_choice,i.light_choice #selecting only 5 items and avoiding rest of details 
+        # cart_items=user_cart_items
+        #user_cart_items=usercart(owner)
+        # for i in user_cart_items:
+        #     user_cart_items_selected=Package.objects.filter(package_id=i)
+        #     select_pack_to_template.append(user_cart_items_selected)#appending to list of item 
+        sum=0# sum 0f all the amount in the packages 
         for i in select_pack_to_template:
             for j in i :
                 sum=sum+j.package_price
         print(sum)
-        return render(request ,'user/checkout.html',{'user_cart':select_pack_to_template})
-    else:
-        return HttpResponse("No iem in your cart ")
+        return render(request ,'user/checkout.html',{'user_cart':select_pack_to_template,'sum':sum})
+   
     
 def confirmcheckout(request):
     # also check for empty cart items 
@@ -185,6 +193,7 @@ def confirmcheckout(request):
         filename=fs.save(invite_pic.name, invite_pic)
         url =fs.url(filename)
         owner=request.user
+        cart_items=usercart(owner=owner)
         # Adding records to the order table 
         order_object=Order(user_name=owner,name=full_name,
         mbl_no=request.POST.get('checkoutmblno'),
@@ -207,3 +216,16 @@ def confirmcheckout(request):
         # print(fname,lname,mbl_no,email,date,time,est_people,venue,venue_address,venue_pin,est_cost,invite_pic)
     else:
         return HttpResponse("404-Not found")
+
+def orderinfo(request,order_id):
+    order_details=Order.objects.filter(order_id=order_id)
+    for i in order_details:
+        #jsonDec=json.decoder.JSONDecoder()
+        order_item_list=json.loads(i.order_items)
+    print(type(order_item_list))
+    print(order_item_list)
+    package_object=[]
+    for i in order_item_list:
+        package_object.append(Package.objects.filter(package_id=i))
+    print(package_object)
+    return render(request,'user/orderinfo.html',{'order_details':order_details,'order_item_list': package_object})

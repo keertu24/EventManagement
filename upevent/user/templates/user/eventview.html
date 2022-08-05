@@ -34,7 +34,11 @@ upevents
         {% endfor %}
     </div>
     {% endfor %} 
+    {% if user.is_authenticated %}
         <button type="submit" class="btn btn-primary btn-block my-4 mx-auto ">Add To Cart</button>
+{%else%}
+        <a href="/login" class="btn btn-primary mx-2 " type="button">Add To Cart </a>
+        {% endif %}
     </form>
 </div>
 {% endblock body %}
