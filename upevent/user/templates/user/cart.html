@@ -4,28 +4,30 @@ My Cart
 {% endblock title %}
 {% block body %}
 {% if user.is_authenticated %}
-<h1>Cart</h1>
-<div class="container  ">
+<h1 class="m-4 text-primary">Cart</h1>
+<div class="container">
 
 {% if user_cart %}
     <!-- this part of code executed when there is some data in user cart  -->
     {% for cart_item in user_cart %}
     {% for i in cart_item %}
-    <div class="row justify-content-around ">
-        <h3 class="my-4">{{i.category}}</h3>
+    <div class="shadow">
+    <div class="row justify-content-around p-2">
+        <h3 class="my-4 ">{{i.category}}</h3>
         <div class="col-4">
             <img src="/media/{{i.package_image}} " height="100%" width="100%" alt="">
         </div>
-        <div class="col-4 flex align-items-center">
+        <div class="col-4 align-items-center">
             <h4>{{i.package_title}}</h4>
             <h6>{{i.package_desc}}</h6>
             <h4>Starting From ₹{{i.package_price}}</h4>
         </div>
     </div>
+    </div>
 
     {% endfor %}
     {% endfor %}
-    <div class="row mt-4">
+    <div class="row m-4">
         <div class="col-3">
         <form action="/user/clearcart/" method="post">
             {% csrf_token %}

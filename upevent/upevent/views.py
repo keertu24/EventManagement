@@ -121,27 +121,10 @@ def organiserlogin(request):
         # Get the post parameters
         loginusername=request.POST['orgusername']
         loginpassword=request.POST['orgpassword']
-        user_object=Organiser.objects.filter(username=loginusername)
-        pass_object=Organiser.objects.filter(password=loginpassword)
-        # creating list for username and password 
-        user_list=[]
-        pass_list=[]
+        user_object=Organiser.objects.filter(username=loginusername,password=loginpassword)
         
-        for i in range(len(user_object)):
-            user_list.append(user_object[i])
-
-        for i in range(len(pass_object)):
-            pass_list.append(pass_object[i])
-     
-        if not user_list:
-            messages.error(request, "Invalid credentials! Please try again")
-            return redirect("/")
-
-        if not pass_list:
-            messages.error(request, "Invalid credentials! Please try again")
-            return redirect("/")
         #  checking whether both list elements are same are not 
-        if(user_list==pass_list):
+        if  user_object:
             user=authenticate(username= loginusername, password= loginpassword)
             if user is not None:
                 login(request,user)

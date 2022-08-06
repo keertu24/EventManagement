@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
           <a class="navbar-brand" href="/user">upevents</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -25,11 +25,11 @@
     </nav>
     {% if user.is_authenticated %}
     <div class="container">
-        <h1>Checkout </h1>
+        <h1 class="text-primary mt-2">Checkout </h1>
         <h4>Your cart Items :</h4>
         {%for cart in user_cart %}
         {%for item in cart %}
-        <div class="container">
+        <div class="container shadow">
             <div class="row text-center p-2">
                 <div class="col">{{item.category}}</div>
                 <div class="col">{{item.package_title}}</div>
@@ -39,7 +39,7 @@
         {%endfor%}
         {%endfor%}
         <h4 class="mt-4">Enter Your Booking Details:</h4>
-        <div class="container my-4">
+        <div class="container my-4 shadow p-3">
             <form action="/user/confirmcheckout/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row mt-3">

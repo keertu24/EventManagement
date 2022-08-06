@@ -42,7 +42,7 @@ class Organiser(models.Model):
     type_of_work=models.CharField(max_length=30,choices=Type_choice,default='MUSIC')
     date_of_join = models.DateField()
     User_email  = models.EmailField(max_length=70,unique=True)
-    mobile_no= models.CharField(max_length=50,unique=True)
+    mobile_no= models.IntegerField(default=0000000000,unique=True)
     address = models.TextField(max_length=300, default="" )
     password=models.CharField(max_length=50)
 

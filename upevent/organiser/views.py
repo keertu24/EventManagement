@@ -4,18 +4,31 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from organiser.models import Organiser,Package
+from user.models import Order
+from datetime import date
+import json
+
 
 # Create your views here.
 def index(request):
-    if(request.user.is_staff):
-        return render(request,'organiser/index.html')
+    organiser=Organiser.objects.filter(username=request.user)
+    if request.user.is_staff and organiser:
+        orders=Order.objects.filter(date__gt=date.today()).order_by('date')
+        print(orders)
+
+
+        context={'organiser':organiser,'orders':orders}
+        return render(request,'organiser/index.html',context)
     else:
         return HttpResponse('404-Not Found')
-def login(request):
-    return HttpResponse("login of organiser")
 
-def forgotPass(request):
-    return HttpResponse("forgot password for org")
-
-def bookView(request):
-    return HttpResponse("bookview of organiser")
+def userorderinfo(request,order_id):
+    order_details=Order.objects.filter(order_id=order_id)
+    for i in order_details:
+        order_item_list=json.loads(i.order_items)
+    package_object=[]# list contain ordered package details 
+    for i in order_item_list:
+        package_object.append(Package.objects.filter(package_id=i))
+    return render(request,'organiser/userorderinfo.html',{'order_details':order_details,'order_item_list': package_object})
+    

@@ -1,6 +1,5 @@
 
-from cgi import print_form
-from datetime import date, datetime
+from datetime import date
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
@@ -47,9 +46,8 @@ def cart(request):
 
 def userprofile(request):
     dateoftoday=date.today()
-    order_items_over=Order.objects.filter(user_name=request.user,date__lte=dateoftoday)
-    order_items_coming=Order.objects.filter(user_name=request.user,date__gt=dateoftoday)
-    print(order_items_over,order_items_coming)
+    order_items_over=Order.objects.filter(user_name=request.user,date__lte=dateoftoday).order_by('date')
+    order_items_coming=Order.objects.filter(user_name=request.user,date__gt=dateoftoday).order_by('date')
     userprofile=UserProfile.objects.filter(user_name=request.user)
     return render(request ,'user/userprofile.html',{'user_image':userprofile,'order_items_over':order_items_over,'order_items_coming':order_items_coming})
 
@@ -211,21 +209,26 @@ def confirmcheckout(request):
         clearcart=Cart.objects.filter(user_name=owner)
         clearcart.delete()
         messages.success(request,'Order Placed')
-        return redirect('/user')
+        return redirect('/user/orderplace')
         
         # print(fname,lname,mbl_no,email,date,time,est_people,venue,venue_address,venue_pin,est_cost,invite_pic)
     else:
         return HttpResponse("404-Not found")
 
+def orderplace(request):
+    return render(request,'user/orderplaced.html')
+
 def orderinfo(request,order_id):
     order_details=Order.objects.filter(order_id=order_id)
     for i in order_details:
-        #jsonDec=json.decoder.JSONDecoder()
         order_item_list=json.loads(i.order_items)
-    print(type(order_item_list))
-    print(order_item_list)
-    package_object=[]
+    package_object=[]# list contain ordered package details 
     for i in order_item_list:
         package_object.append(Package.objects.filter(package_id=i))
-    print(package_object)
     return render(request,'user/orderinfo.html',{'order_details':order_details,'order_item_list': package_object})
+
+def orderdelete(request,order_id):
+    order=Order.objects.get(order_id=order_id)
+    order.delete()
+    messages.success(request,'Order deleted')
+    return redirect('/user/userprofile')

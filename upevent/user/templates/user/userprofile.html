@@ -4,7 +4,7 @@
 My Profile
 {% endblock title %}
 {% block bg-img %}
-style="background-image: url({% static 'user/images/background/bg-profile.jpg' %}); " 
+style="background-color:#E1F5FE; "
 {% endblock bg-img %}
 {% load static %}
 {% block body %}
@@ -12,10 +12,10 @@ style="background-image: url({% static 'user/images/background/bg-profile.jpg' %
 <!-- to show user details  -->
 <div class="row mx-4 my-3 justify-content-between ">
   <div class="col-4">
-    <h2 class="">My Profile</h2>
+    <h2 class="text-primary">My Profile</h2>
   </div>
   <div class="col-4 ">
-    <a href="/logout" class="btn btn-dark mx-2" type="button">Logout</a>
+    <a href="/logout" class="btn btn-primary mx-2" type="button">Logout</a>
   </div>
 </div>
 <div class="card container mt-2 border-0 shadow-lg rounded">
@@ -71,44 +71,44 @@ style="background-image: url({% static 'user/images/background/bg-profile.jpg' %
 </div>
 
 <!-- to display the user booked event  -->
-<div class="shadow-lg rounded  p-4 m-4 border border-dark bg-white" >
-<h2 class="m-3">Events:Upcoming</h2>
-<!-- events that are upcoming  -->
-{% for i in order_items_coming %}
-<div class="card p-4 m-2 " style="background-color:#81C784;">
-  <div class="row">
-    <div class="col ">
-      <a href="/user/orderinfo/{{i.order_id}}" class="text-white"> Order ID: {{i.order_id}}
-      </a>
+<div class="shadow-lg rounded  p-4 m-4  bg-white">
+  <h2 class="m-3 text-primary">Events:Upcoming</h2>
+  <!-- events that are upcoming  -->
+  {% for i in order_items_coming %}
+  <div class="card p-4 m-2 " style="background-color:#C8E6C9;">
+    <div class="row">
+      <div class="col ">
+        <a href="/user/orderinfo/{{i.order_id}}" class=""> Order ID: {{i.order_id}}
+        </a>
+      </div>
+      <div class="col">{{i.date}}</div>
+      <div class="col">{{i.time}}</div>
+      <div class="col">{{i.venue}}</div>
+      <div class="col">{{i.est_cost}}</div>
+      <div class="col"> <a href="/user/orderdelete/{{i.order_id}}"><button class="btn btn-outline-primary">Delete</button></a> </div>
     </div>
-    <div class="col">{{i.date}}</div>
-    <div class="col">{{i.time}}</div>
-    <div class="col">{{i.venue}}</div>
-    <div class="col">{{i.est_cost}}</div>
-    <div class="col">{{i.order_id}}</div>
   </div>
+  {% endfor %}
 </div>
-{% endfor %}
-</div>
-<div class="shadow-lg rounded p-4 m-4 border border-dark bg-white">
-<h2 class="m-3">Events:Completed</h2>
-<!-- event that are over  -->
+<div class="shadow-lg rounded p-4 m-4  bg-white">
+  <h2 class="m-3 text-primary">Events:Completed</h2>
+  <!-- event that are over  -->
 
-{% for i in order_items_over %}
-<div class="card p-4 m-2 " style="background-color: #E57373;">
-  <div class="row">
-    <div class="col ">
-      <a href="/user/orderinfo/{{i.order_id}}" class="text-white"> Order ID: {{i.order_id}}
-      </a>
+  {% for i in order_items_over %}
+  <div class="card p-4 m-2 " style="background-color: #FFCDD2;">
+    <div class="row">
+      <div class="col ">
+        <a href="/user/orderinfo/{{i.order_id}}" class=""> Order ID: {{i.order_id}}
+        </a>
+      </div>
+      <div class="col">{{i.date}}</div>
+      <div class="col">{{i.time}}</div>
+      <div class="col">{{i.venue}}</div>
+      <div class="col">{{i.est_cost}}</div>
+
     </div>
-    <div class="col">{{i.date}}</div>
-    <div class="col">{{i.time}}</div>
-    <div class="col">{{i.venue}}</div>
-    <div class="col">{{i.est_cost}}</div>
-    <div class="col">{{i.order_id}}</div>
   </div>
-</div>
-{% endfor %}
+  {% endfor %}
 </div>
 {% else %}
 <h3 class="text-center my-4">Please Log in</h3>

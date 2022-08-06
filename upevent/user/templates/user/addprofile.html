@@ -13,7 +13,7 @@
   <title>Add Profile Info </title>
 </head>
 
-<body>
+<body style="background-color:#E3F2FD ;">
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
       <a class="navbar-brand" href="/user">upevents</a>
@@ -25,10 +25,10 @@
 </nav>
   {% if user.is_authenticated %}
   {% load static %}
-  <h1 class="mt-4 mx-4 ">Add More Information</h1>
-  <form method="post" action="/user/confirmaddprofile/" enctype="multipart/form-data" id="myform">
+  <h1 class="mt-4 mx-4 text-primary ">Add More Information</h1>
+  <form method="post" action="/user/confirmaddprofile/" enctype="multipart/form-data" id="myform" >
     {% csrf_token %}
-    <div class="container mb-4">
+    <div class="container m-4 mx-auto shadow p-3 bg-white">
       <div class="row justify-content-around my-4">
         <div class="col-3  p-3">
           <img src="{% static '/user/images/birthday.jpg' %}" alt="profile Photo"
@@ -99,16 +99,16 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
+   
+    <div class="row m-3">
       <div class="col-8 text-right mx-2 mt-4">
         <a href="/user/userprofile" class="btn btn-outline-primary mx-2" type="button">Cancel</a>
       </div>
       <div class="col-3 mx-2 mt-4">
         <button type="submit" class="btn btn-primary" id="submit">Submit</button>
-
       </div>
     </div>
+  </div>
   </form>
   {% else %}
 <h3 class="text-center my-4">Please Log in</h3>
