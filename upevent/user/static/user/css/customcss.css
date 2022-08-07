@@ -26,17 +26,11 @@
       cursor: pointer;
      
   }
-  
 
   .card-input-element:checked + .card-input {
        box-shadow: 0 0 1px 1px #2e43cc;
   }
 
-  body{
-    background-repeat: no-repeat;
-  }
-
-  
   .bg-cust{
     background-color: #75f321;
   }

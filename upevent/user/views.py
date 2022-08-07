@@ -13,7 +13,7 @@ from django.template import context
 import json 
 from user.function import usercart
 
-cart_items=[]
+order_amount=0
 # Create your views here.
 def home(request):
     events=Event.objects.all()
@@ -31,7 +31,6 @@ def eventView(request):
     return  render(request ,'user/eventview.html',{'allpack':allpack})
 
 def cart(request):
-    global cart_items
     owner=request.user
     # user_cart=Cart.objects.filter(user_name=owner)# getting list of the selected items in cart
     # user_cart_items=[]# it saves the id of each cart item and also to get only some value 
@@ -160,7 +159,6 @@ def clearcart(request):
     return redirect('/user')
 
 def checkout(request):
-        global cart_items
         owner=request.user
         # user_cart=Cart.objects.filter(user_name=owner)# getting list of the selected items in cart
         # user_cart_items=[]# it saves the id of each cart item and also to get only some value 
@@ -176,15 +174,16 @@ def checkout(request):
         for i in select_pack_to_template:
             for j in i :
                 sum=sum+j.package_price
-        print(sum)
         return render(request ,'user/checkout.html',{'user_cart':select_pack_to_template,'sum':sum})
    
     
 def confirmcheckout(request):
+    global order_amount
     # also check for empty cart items 
     if request.method=='POST':
         fname=request.POST.get('checkoutfname')
         lname=request.POST.get('checkoutlname')
+        order_amount=request.POST.get('estcost')
         full_name=fname+" "+lname
         invite_pic=request.FILES.get('checkoutpic')
         fs=FileSystemStorage()
@@ -210,13 +209,12 @@ def confirmcheckout(request):
         clearcart.delete()
         messages.success(request,'Order Placed')
         return redirect('/user/orderplace')
-        
-        # print(fname,lname,mbl_no,email,date,time,est_people,venue,venue_address,venue_pin,est_cost,invite_pic)
     else:
         return HttpResponse("404-Not found")
 
 def orderplace(request):
-    return render(request,'user/orderplaced.html')
+    global order_amount
+    return render(request,'user/orderplaced.html',{'order_amount':order_amount})
 
 def orderinfo(request,order_id):
     order_details=Order.objects.filter(order_id=order_id)

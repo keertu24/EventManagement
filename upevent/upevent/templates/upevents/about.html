@@ -2,55 +2,59 @@
 {% block title %}
 Aboutus
 {% endblock title %}
- {% block aboutactive %} active {% endblock aboutactive %}
- {% block body %}
-  <!-- START THE FEATURETTES -->
-
-  <hr class="featurette-divider">
-
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h2 class="featurette-heading fw-normal lh-1">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-      <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+{% block aboutactive %} active {% endblock aboutactive %}
+{% block bg-img %}
+style="background-color:#E1F5FE;"
+{% endblock bg-img %}
+{% block body %}
+{%load static%}
+<!-- START THE FEATURETTES -->
+<div class="shadow m-4 p-4 bg-white" >
+  <div class="row featurette cls-head">
+    <div class="col-md-8 anime  animate__animated animate__slideInLeft animate__slow">
+      <h2 class="featurette-heading fw-normal lh-1 mt-4">UPEVENTS IS AN EVENT MANAGEMENT BASED ORGANISATION .<span
+          class="text-muted"></span></h2>
+      <p class="lead">WE ARE HERE TO DESIGN AND MANAGE SOME GREAT EVENTS <br><br>
+        WE CAN TELL YOU ABOUT OUR SERVICES, THERE IS NO BETTER RECOMMENDATION THAN OUR CUSTOMERS WHO HAVE
+        EXPERIENCED WHAT WE OFFER FIRST HAND - THESE ARE SOME OF THEIR COMMENTS...</p>
     </div>
-    <div class="col-md-5">
-      <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-
-    </div>
-  </div>
-
-  <hr class="featurette-divider">
-
-  <div class="row featurette">
-    <div class="col-md-7 order-md-2">
-      <h2 class="featurette-heading fw-normal lh-1">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-      <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
-    </div>
-    <div class="col-md-5 order-md-1">
-      <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+    <div class="col-md-4 mt-4 animeRight animate__animated animate__slideInRight animate__slow">
+      <img src="{% static '/user/images/birthday.jpg' %}" width="300" height="230" alt="" class="rounded">
 
     </div>
   </div>
+</div>
 
-  <hr class="featurette-divider">
+<div class="shadow m-4 p-4 bg-white" >
+  <div class="row featurette cls-head2">
+    <div class="col-md-4 mt-4 anime animate__animated animate__slideInLeft animate__slow">
+      <img src="{% static '/user/images/birthday.jpg' %}" width="300" height="230" alt="" class="rounded">
 
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h2 class="featurette-heading fw-normal lh-1">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-      <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
     </div>
-    <div class="col-md-5">
-      <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+    <div class="col-md-8 animeRight  animate__animated animate__slideInRight animate__slow">
+      <h2 class="featurette-heading fw-normal lh-1 mt-4">We offer the good catering service.<span
+          class="text-muted"></span></h2>
+      <p class="lead">We provide tasty and best quality food .<br><br>
+        We have broad category of food items ,we product north ,south indian style food.Also we offer both veg and non-veg dishes.We separate and indepent teams for veg and non-veg.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="shadow m-4 p-4 bg-white" >
+  <div class="row featurette cls-head">
+    <div class="col-md-8 anime  animate__animated animate__slideInLeft animate__slow">
+      <h2 class="featurette-heading fw-normal lh-1 mt-4">One of Best Decoration team available in Market.<span
+          class="text-muted"></span></h2>
+      <p class="lead">We provide some colorful and creative designs.<br><br>
+        We offer flower decoration, you can customise decoration according to your interest.Ragoli can be provided . Decoration with electric bulbs also available</p>
+    </div>
+    <div class="col-md-4 mt-4 animeRight animate__animated animate__slideInRight animate__slow">
+      <img src="{% static '/user/images/birthday.jpg' %}" width="300" height="230" alt="" class="rounded">
 
     </div>
   </div>
-
-  <hr class="featurette-divider">
-
-  <!-- /END THE FEATURETTES -->
-
-</div><!-- /.container -->
+</div>
 
 
-
- {% endblock body %}
+{% endblock body %}
