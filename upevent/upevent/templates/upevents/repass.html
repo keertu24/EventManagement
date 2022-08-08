@@ -1,0 +1,30 @@
+{% extends 'upevents/bootstrap.html' %}
+{%block title%} otp{%endblock title %} 
+{% block body %}
+<div class="container mt-4" style="height: 100vh;">
+    <div class=" mx-auto  " style="width:40vw ;">
+        <h3 class="m-3">Enter the new password</h3>
+        <div class="card " >
+            <div class="card-body ">
+                <p class="text-center">Enter the password here.Password must be same in both the fields .</p>
+    
+    <form action="/confirmrepass/" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="newpass1" class="form-label">Enter New Password</label>
+            <input type="password" class="form-control" id="newpass1" name="newpass1" required>
+          </div>
+          <div class="mb-3">
+            <label for="newpass2" class="form-label">Confirm New Password</label>
+            <input type="password" class="form-control" id="newpass2" name="newpass2" required>
+          </div>
+          <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary btn-block text-right">Submit </button>
+        </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock body %}

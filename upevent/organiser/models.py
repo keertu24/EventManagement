@@ -1,3 +1,5 @@
+from datetime import date
+from distutils.command.upload import upload
 import email
 from unicodedata import category
 from django.db import models
@@ -19,7 +21,7 @@ class Contact(models.Model):
 class News(models.Model):
     news_id = models.AutoField(primary_key=True)
     news_title = models.CharField(max_length=50)
-    pub_date = models.DateField()
+    pub_date = models.DateField(default=date.today(),null=True)
     image = models.ImageField(upload_to='organiser/images', default="")
     desc = models.TextField(max_length=5000, default="" )
 
@@ -45,6 +47,7 @@ class Organiser(models.Model):
     mobile_no= models.IntegerField(default=0000000000,unique=True)
     address = models.TextField(max_length=300, default="" )
     password=models.CharField(max_length=50)
+    profile_photo=models.ImageField(upload_to='organiser/images',default="")
 
 
     def __str__(self):

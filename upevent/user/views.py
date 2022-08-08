@@ -134,11 +134,11 @@ def submitpackage(request):
         decorchoice=request.POST.get('DECORATION')
         lightchoice=request.POST.get('LIGHTING')
         stagechoice=request.POST.get('STAGE PROGRAM')   
-        print('Music',musicchoice)
-        print('Food',foodchoice)
-        print('Decor',decorchoice)
-        print('light',lightchoice)
-        print('Stage',stagechoice)
+        # checking if atleast one item selected or not 
+        if musicchoice==None and foodchoice==None and decorchoice==None and lightchoice==None and stagechoice==None :
+            messages.error(request,'Please select atleast one item ')
+            return redirect('/user')
+
         owner=request.user
         try:
             user_cart=Cart(user_name=owner,music_choice=musicchoice,food_choice=foodchoice,decor_choice=decorchoice,light_choice=lightchoice,stage_choice=stagechoice)

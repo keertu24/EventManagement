@@ -1,0 +1,26 @@
+{% extends 'upevents/bootstrap.html' %}
+{%block title%} otp{%endblock title %} 
+{% block body %}
+<div class="container mt-4" style="height: 100vh;">
+    <div class=" mx-auto  " style="width:40vw ;">
+        <h3 class="m-3"> OTP</h3>
+        <div class="card " >
+            <div class="card-body ">
+                <p class="text-center">Enter Your 6-digit otp that is sent to your email id, If not there check in the spam section .   </p>
+    
+    <form action="/confirmotp/" method="post">
+        {% csrf_token %}
+        <div class="form-outline m-4">
+            <input type="number" id="enterotp" class="form-control" name="enterotp" placeholder="Enter your otp" />
+            <label class="form-label m-2" for="enterotp">Enter Your Otp</label>
+          </div>
+          <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary btn-block text-right">Submit </button>
+        </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock body %}

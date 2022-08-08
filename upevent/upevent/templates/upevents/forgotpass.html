@@ -1,0 +1,27 @@
+{% extends 'upevents/bootstrap.html' %}
+{%block title%} forgot password{%endblock title %} 
+{% block body %}
+<div class="container mt-4" style="height: 100vh;">
+<div class=" mx-auto  " style="width:40vw ;">
+    <h3 class="m-3"> Forgot password</h3>
+    <div class="card " >
+        <div class="card-body ">
+            <p class="text-center">Otp is sent to your email id when send button is clicked. Please check your email id ,Make sure that email id is registered with your account  </p>
+
+<form action="/otp/" method="post">
+    {% csrf_token %}
+    <div class="form-outline m-4">
+        <input type="email" id="forgotemail" class="form-control" name="forgotemail" placeholder="Enter your email id" />
+        <label class="form-label" for="loginusername">Enter Your Email Id</label>
+      </div>
+      <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary btn-block text-right">Send otp </button>
+    </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+
+{% endblock body %}

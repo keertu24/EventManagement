@@ -1,4 +1,5 @@
 import re
+from sre_constants import SUCCESS
 from tempfile import template
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
@@ -6,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
 from organiser.models import Contact,News,Organiser,Event
-
+user_email=''
 
 # Create your views here.
 def index(request):
@@ -143,3 +144,55 @@ def organiserlogout(request):
     logout(request)
     messages.success(request, "Successfully logged out")
     return redirect('/')
+
+def forgotpass(request):
+    return render(request,'upevents/forgotpass.html')
+
+def otp(request):
+    global user_email
+    #module to verify email with user and send otp to that email id 
+    if request.method=='POST':
+        emailid=request.POST.get('forgotemail')
+        email_object=User.objects.filter(email=emailid)
+        if email_object:
+            email_object2=User.objects.get(email=emailid).username
+            user_email=email_object2
+            return redirect('/enterotp')
+        else:
+            messages.error(request,'wrong email id')
+            return redirect('/forgotpass')
+
+    else:
+        return HttpResponse('404-page not found')
+
+def enterotp(request):
+    return render(request,'upevents/otp.html')
+
+def confirmotp(request):
+    if request.method=='POST':
+        otp=request.POST.get('enterotp')
+        if otp=='000111':
+            return redirect('/repass')
+        else:
+            messages.error(request,'Wrong otp ...Please re-enter ')
+            return redirect('/enterotp')
+
+def repass(request):
+    return render(request,'upevents/repass.html')
+
+def confirmrepass(request):
+    print(user_email)
+    if request.method=="POST":
+        pass1=request.POST.get('newpass1')
+        pass2=request.POST.get('newpass2')
+        if (pass1!=pass2):
+            messages.error(request,'Password must be same !!!!')
+            return redirect('/repass')
+        else:
+            print(user_email)
+            user_object=User.objects.get(username=user_email)
+            print(user_object)
+            user_object.set_password(pass1)
+            user_object.save()
+            messages.success(request,'Password updated successfully !!')
+            return redirect('/')

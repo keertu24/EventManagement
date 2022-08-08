@@ -1,0 +1,19 @@
+{% extends 'upevents/bootstrap.html' %}
+{%block title%} Add News{%endblock title %} 
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/organiser">upevents</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+</nav>
+<h3 class="m-3 text-primary ">Add news here</h3>
+<form action="/organiser/confirmnews/" method="post" class="m-3 p-3" enctype="multipart/form-data">
+    {% csrf_token %}
+{{form.as_p}}
+<button type="submit">Submit</button>
+</form>
+{% endblock body %}
