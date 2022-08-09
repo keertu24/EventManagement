@@ -50,7 +50,6 @@ def confirmsignUp(request):
             username=request.POST['signupusername']
             fname =request.POST['signupfname']
             lname=request.POST['signuplname']
-            mblno=request.POST['signupmblno']
             email=request.POST['signupemail']
             password=request.POST['signuppassword']
             conpassword=request.POST['signupconfirmpassword']
@@ -67,6 +66,15 @@ def confirmsignUp(request):
             if (password!= conpassword):
                 messages.error(request, " Passwords do not match")
                 return redirect('/signup')
+
+            if not re.match("^[a-zA-Z]+$",fname):
+                messages.error(request, "Only Characters allowed in Name")
+                return redirect('/signup')
+
+            if not re.match("^[a-zA-Z]+$",lname):
+                messages.error(request, "Only Characters allowed in Name")
+                return redirect('/signup')
+            
             
 
         # put this things in try block 
@@ -74,7 +82,6 @@ def confirmsignUp(request):
             myuser=User.objects.create_user(username,email,password)
             myuser.first_name=fname
             myuser.last_name=lname
-        # myuser.mblno=mblno
             myuser.save()
             messages.success(request,"success")
             return redirect('/signup')

@@ -12,6 +12,7 @@ from django.core.files.storage import FileSystemStorage
 from django.template import context
 import json 
 from user.function import usercart
+import re
 
 order_amount=0
 # Create your views here.
@@ -183,8 +184,22 @@ def confirmcheckout(request):
     if request.method=='POST':
         fname=request.POST.get('checkoutfname')
         lname=request.POST.get('checkoutlname')
-        order_amount=request.POST.get('estcost')
         full_name=fname+" "+lname
+        if not re.match("^[a-zA-Z\s]+$",full_name):
+                messages.error(request, "Only Characters allowed in Name")
+                return redirect('/user/checkout')
+
+        mbl_no=request.POST.get('checkoutmblno')
+        if not re.match('^[0-9]{10}',mbl_no):
+            messages.error(request, "Numbers must be 10 digits")
+            return redirect('/user/checkout')
+
+        venue_pin=request.POST.get('checkoutpin')
+        if not re.match('^[0-9]{10}',venue_pin):
+            messages.error(request, "Numbers must be 10 digits")
+            return redirect('/user/checkout')
+
+        order_amount=request.POST.get('estcost')
         invite_pic=request.FILES.get('checkoutpic')
         fs=FileSystemStorage()
         filename=fs.save(invite_pic.name, invite_pic)
@@ -193,14 +208,14 @@ def confirmcheckout(request):
         cart_items=usercart(owner=owner)
         # Adding records to the order table 
         order_object=Order(user_name=owner,name=full_name,
-        mbl_no=request.POST.get('checkoutmblno'),
+        mbl_no=mbl_no,
         email=request.POST.get('checkoutemail'),
         date=request.POST.get('checkoutdate'),
         time=request.POST.get('checkouttime'),
         est_people=request.POST.get('checkoutpeople'),
         venue=request.POST.get('checkoutvenue'),
         venue_address=request.POST.get('checkoutaddress'),
-        venue_pin=request.POST.get('checkoutpin'),
+        venue_pin=venue_pin,
         est_cost=request.POST.get('estcost'),invite_image=url,
         order_items=json.dumps(cart_items)
         )

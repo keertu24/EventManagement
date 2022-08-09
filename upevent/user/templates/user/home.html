@@ -6,10 +6,13 @@ upevents
 {% block style %}
 <style>
     .home-text-bg {
-        background-image: url("{% static 'user/images/background/home-text-bg.jpg'%}");
+        background-image: url("{% static 'user/images/background/3386851.jpg'%}");
         height: 80vh;
         background-repeat: no-repeat;
         background-size: cover;
+    }
+    body{
+        background-color: #E1F5FE;
     }
 </style>
 {% endblock style %}
@@ -17,24 +20,28 @@ upevents
 {% block body %}
 
 
-<div class="d-flex text-center home-text-bg text-white align-items-center justify-content-center flex-column m-2">
-    <h1 class="animate__animated animate__flash display-1">upEvents</h1>
-    <h4 class=" animate__animated animate__slideInLeft animate__slow">An Event Management Organisation </h4>
+<div class="d-flex text-center home-text-bg text-white align-items-center justify-content-center flex-column bg-white ">
+    <h1 class="animate__animated animate__flash display-1" style="font-family: 'Oleo Script Swash Caps', cursive;">upEvents</h1>
+    <h4 class=" animate__animated animate__slideInLeft animate__slow" style="font-family: 'Oleo Script Swash Caps', cursive;">An Event Management Organisation </h4>
 </div>
 
-<!-- cards show the event name and image starts here -->
-<h2 class="m-2 mt-4 text-primary">Select Any Events Here:</h2>
 
-<div class="row my-4 shadow mx-auto   p-2 ">
+<!-- cards show the event name and image starts here -->
+<h1 class="m-2 mt-4 text-primary text-center">Select Any Events Here</h1>
+<div class="container" style="width:60vw ;">
+<div class="row my-4 shadow mx-auto p-3 bg-white justify-content-around">
     {% for event in events %}
-    <div class="card col-4 border-0 " style="width: 19rem;">
+    <div class="card col-4 border-0 card-hover mt-4" style="width: 19rem;">
         <a class="card-block stretched-link text-decoration-none" href="/user/eventview">
-            <img src="/media/{{event.event_image}}" class="card-img-top" alt="..." height="200px" width="200px">
+            <div class="bg-dark">
+            <img src="/media/{{event.event_image}}" class="card-img-top " alt="..." height="200px" width="200px" style="opacity:0.6 ;">
+        </div>
             <div class="card-body">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="card-title">{{event.event_title}}</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                <div class="carousel-caption d-none d-md-block font-weight-bold">
+                    <h4 class="card-title ">{{event.event_title}}</h4>
+                    <p class="card-text">
+                        {{event.event_desc}}
+                    </p>
 
                 </div>
             </div>
@@ -43,19 +50,20 @@ upevents
     {% endfor%}
 
 </div>
+</div>
 <!-- end of card show  -->
 
 <!-- just for about us brief show  -->
-<div class="shadow m-2 p-2" style="background-color:#E1F5FE;">
+<div class="shadow m-2 p-4 bg-white" >
     <div class="row featurette cls-head">
-        <div class="col-md-8 anime  animate__animated animate__slideInLeft animate__slow">
+        <div class="col-md-8   animate__animated animate__slideInLeft animate__slow">
             <h2 class="featurette-heading fw-normal lh-1">UPEVENTS IS AN EVENT MANAGEMENT BASED ORGANISATION .<span
                     class="text-muted"></span></h2>
             <p class="lead">WE ARE HERE TO DESIGN AND MANAGE SOME GREAT EVENTS <br><br>
                 WE CAN TELL YOU ABOUT OUR SERVICES, THERE IS NO BETTER RECOMMENDATION THAN OUR CUSTOMERS WHO HAVE
                 EXPERIENCED WHAT WE OFFER FIRST HAND - THESE ARE SOME OF THEIR COMMENTS...</p>
         </div>
-        <div class="col-md-4 mt-4 animeRight animate__animated animate__slideInRight animate__slow">
+        <div class="col-md-4 mt-4  animate__animated animate__slideInRight animate__slow">
             <img src="{% static '/user/images/birthday.jpg' %}" width="300" height="230" alt="" class="rounded">
 
         </div>
@@ -69,7 +77,7 @@ upevents
 
 
 <!-- what people are saying about us Testinomials  -->
-<div class="shadow position-relative text-center mt-4 p-3" style="height: 350px;  background-color:aqua ">
+<div class="shadow position-relative text-center mt-4 p-3" style="height: 350px;  background-color:#BBDEFB ">
     <h1>What people are saying about us</h1>
     <div class="row justify-content-around  position-absolute top-100 start-50  cls-head"
         style="transform:translate(-50%,-59%)">
@@ -107,7 +115,7 @@ upevents
 
     </div>
 </div>
-<div style="height:230px ; background-color:antiquewhite"></div>
+<div style="height:230px ; background-color:#03A9F4"></div>
 {% endblock body %}
 {% block js %}
 <script>

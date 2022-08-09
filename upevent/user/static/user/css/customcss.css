@@ -34,4 +34,14 @@
   .bg-cust{
     background-color: #75f321;
   }
+  .card-hover{
+    transition: transform 300ms ease-in-out ;
+    
+  }
+ 
+  .card-hover:hover
+  {
+    transform: translate(0px,-10px);
+    
+  }
   

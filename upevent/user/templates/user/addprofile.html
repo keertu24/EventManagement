@@ -128,36 +128,28 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-  <script type="javascript">
-      function validatePhoneNumber(input_str) {
-        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-      
-        return re.test(input_str);
-      }
-      function validateForm(event) {
-        var phone = document.getElementById('mblno').value;
-        if (!validatePhoneNumber(phone)) {
-      
-      document.getElementById('phone_error').classList.remove('hidden');
-        } else {
-      
-      document.getElementById('phone_error').classList.add('hidden');
-          alert("validation success")
-        }
-        event.preventDefault();
-      }
-      
-    document.getElementById('#addprofiledob').addEventListener('submit', validateDOB);
-    </script>
     <script>
-      $(function(){
-        $("#addprofiledob").datepicker ({
-          format:"dd-mm-yyyy",
-          endDate:'+0d',
-          autoclose:true
+      const datepicker1=document.querySelector('#addprofiledob');
+        datepicker1.addEventListener('click',(e)=>{
+            var datetoday= new Date();
+            
+            if (datetoday.getMonth()<10 &&datetoday.getDate()<10 ){
+              var year=(datetoday.getFullYear()-18)+'-0'+(datetoday.getMonth()+1)+'-0'+(datetoday.getDate());
+            }
+            else if (datetoday.getMonth()<10){
+              var year=(datetoday.getFullYear()-18)+'-0'+(datetoday.getMonth()+1)+'-'+(datetoday.getDate());
+            }
+            else if (datetoday.getDate()<10){
+              var year=(datetoday.getFullYear()-18)+'-'+(datetoday.getMonth()+1)+'-0'+(datetoday.getDate());
+            }
+            else{
+              var year=(datetoday.getFullYear()-18)+'-'+(datetoday.getMonth()+1)+'-'+(datetoday.getDate());
+
+            }
+            console.log(year)
+            datepicker1.setAttribute('max',year)
+            
         })
-      });
-      $('#addprofiledob')
     </script>
 </body>
 

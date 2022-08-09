@@ -23,6 +23,15 @@
           </button>
         </div>
     </nav>
+    {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message : </strong> {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+
     {% if user.is_authenticated %}
     <div class="container">
         <h1 class="text-primary mt-2">Checkout </h1>
@@ -148,12 +157,12 @@
         let inputel = document.getElementById("checkoutpeople")
         inputel.addEventListener('change', (e) => {
             estpeople = parseInt(e.target.value);
-            console.log(estpeople)
+           
             let pretotal = 0
             let total = 0
             pretotal = parseInt(document.getElementById('pretotal').value);
             if (estpeople < 200) {
-                console.log('111')
+                
                 total = pretotal + estpeople * 200;
             }
             else if (estpeople >= 200 && estpeople <= 500) {
@@ -162,12 +171,23 @@
             else {
                 total = pretotal + 200 * 200 + 300 * 500 + (estpeople - 500) * 600;
             }
-            console.log(total)
+            
             estcost = document.getElementById('estcost');
             estcost.value = total;
         })
+        //end of the javascript amount calculating function
+    
+        const datepicker1=document.querySelector('#checkoutdate');
+        datepicker1.addEventListener('click',(e)=>{
+            var datetoday= new Date();
+            var year=datetoday.getFullYear()+'-0'+(datetoday.getMonth()+1)+'-'+(datetoday.getDate()+2);
+            datepicker1.setAttribute('min',year)
+            
+        })
+
 
     </script>
+    
 </body>
 
 </html>
