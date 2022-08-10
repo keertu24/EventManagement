@@ -20,9 +20,6 @@ def index(request):
     organiser=Organiser.objects.filter(username=request.user)
     if request.user.is_staff and organiser:
         orders=Order.objects.filter(date__gt=date.today()).order_by('date')
-        print(orders)
-
-
         context={'organiser':organiser,'orders':orders}
         return render(request,'organiser/index.html',context)
     else:
@@ -40,17 +37,13 @@ def userorderinfo(request,order_id):
 def addnews(request):
     form=NewsForm
     context={'form':form}
-
     return render(request,'organiser/addnews.html',context)
 
 def confirmnews(request):
     if request.method=='POST':
         form=NewsForm(request.POST,request.FILES)
-        print(form)
         if form.is_valid():
-            
             form.save()
-            
             messages.success(request,'News added in the database')
             return redirect('/organiser')
         else:

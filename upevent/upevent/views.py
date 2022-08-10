@@ -45,7 +45,6 @@ def signUp(request):
 def confirmsignUp(request):
     #end point to add a user
     try:
-        print(request)
         if request.method=='POST':
             username=request.POST['signupusername']
             fname =request.POST['signupfname']
@@ -75,8 +74,6 @@ def confirmsignUp(request):
                 messages.error(request, "Only Characters allowed in Name")
                 return redirect('/signup')
             
-            
-
         # put this things in try block 
             #create the user
             myuser=User.objects.create_user(username,email,password)
@@ -102,7 +99,6 @@ def aboutUs(request):
 
 def contactUs(request):
     if request.method=="POST":
-        print(request)
         name=request.POST.get('contactname', '')
         email=request.POST.get('contactemail', '')
         phone=request.POST.get('contactphone', '')
@@ -188,7 +184,6 @@ def repass(request):
     return render(request,'upevents/repass.html')
 
 def confirmrepass(request):
-    print(user_email)
     if request.method=="POST":
         pass1=request.POST.get('newpass1')
         pass2=request.POST.get('newpass2')
@@ -196,9 +191,7 @@ def confirmrepass(request):
             messages.error(request,'Password must be same !!!!')
             return redirect('/repass')
         else:
-            print(user_email)
             user_object=User.objects.get(username=user_email)
-            print(user_object)
             user_object.set_password(pass1)
             user_object.save()
             messages.success(request,'Password updated successfully !!')

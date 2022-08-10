@@ -66,6 +66,10 @@ def confirmaddprofile(request):
             dob=request.POST.get('addprofiledob')
             gender=request.POST.get('addprofilegenderradio')
             user_image=request.FILES.get('profilepic')
+            if len(mbl_no)!=10:
+                messages.error(request,'Mobile Number must be 10 digits')
+                return redirect('/user/addprofile')
+
             # handle the file url 
             if user_image:
                 fs=FileSystemStorage()
@@ -73,15 +77,18 @@ def confirmaddprofile(request):
                 url =fs.url(filename)
                 new_user_profile=UserProfile(user_name=owner,user_mbl_no=mbl_no,user_dob=dob,user_gender=gender,user_image=url)
                 new_user_profile.save()
+                messages.success(request,'Profile saved')
+                return redirect('/user/userprofile')
             # saving information in UserProfile table 
             new_user_profile=UserProfile(user_name=owner,user_mbl_no=mbl_no,user_dob=dob,user_gender=gender)
             new_user_profile.save()
+            messages.success(request,'Profile saved')
             return redirect('/user/userprofile')
         else:
 
             return HttpResponse(' 404-Not Found')
     except:
-            messages.error(request,'Please use option edit profile, your profile information  added already and also check the mobile no')
+            messages.error(request,'Please use option edit profile, your profile information  added already')
             return redirect('/user/userprofile')
 
 def editprofile(request):
@@ -100,11 +107,13 @@ def confirmeditprofile(request):
         dob=request.POST.get('editprofiledob')
         gender=request.POST.get('editprofilegenderradio')
         user_image=request.FILES.get('editprofilepic')
+        if len(mbl_no)!=10:
+                messages.error(request,'Mobile Number must be 10 digits')
+                return redirect('/user/editprofile')
         try:
             # handling the image url 
             update_user_profile=UserProfile.objects.get(user_name=owner)
             if user_image:
-                print("sgrgherher")
                 fs=FileSystemStorage()
                 filename=fs.save(user_image.name, user_image)
                 url =fs.url(filename)
@@ -190,13 +199,14 @@ def confirmcheckout(request):
                 return redirect('/user/checkout')
 
         mbl_no=request.POST.get('checkoutmblno')
-        if not re.match('^[0-9]{10}',mbl_no):
-            messages.error(request, "Numbers must be 10 digits")
+        
+        if len(mbl_no)!=10:
+            messages.error(request, "Mobile numbers must be 10 digits")
             return redirect('/user/checkout')
 
         venue_pin=request.POST.get('checkoutpin')
-        if not re.match('^[0-9]{10}',venue_pin):
-            messages.error(request, "Numbers must be 10 digits")
+        if len(venue_pin)!=6 :
+            messages.error(request, "Pin code ")
             return redirect('/user/checkout')
 
         order_amount=request.POST.get('estcost')
