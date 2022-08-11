@@ -24,11 +24,12 @@ style="background-color:#E1F5FE; "
                 
                 <div class="card card-default card-input ">
                     <div class="card-header">
-                        <img src="https://source.unsplash.com/200x200/?" class="card-img-top" alt="..." height="200px" width="200px">
-                        {{i.package_title}}</div>
+                        <img src="/media/{{i.package_image}}" class="card-img-top" alt="..." height="200px" width="200px">
+                        <h4>
+                        {{i.package_title}}</h4></div>
                     <div class="card-body p-2">
                         {{i.package_desc}}<br>
-                        {{i.package_price}}
+                        <h5>Starting From ₹{{i.package_price}}</h5>
 
                     </div>
                 </div>

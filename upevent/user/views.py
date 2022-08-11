@@ -27,7 +27,7 @@ def eventView(request):
     catpack=Package.objects.values('category','package_id')
     cats={item['category'] for item in catpack}
     for cat in cats:
-        prod=Package.objects.filter(category=cat)
+        prod=Package.objects.filter(category=cat).order_by('category')
         allpack.append(prod)
     return  render(request ,'user/eventview.html',{'allpack':allpack})
 

@@ -80,12 +80,12 @@ def confirmsignUp(request):
             myuser.first_name=fname
             myuser.last_name=lname
             myuser.save()
-            messages.success(request,"success")
-            return redirect('/signup')
+            messages.success(request,"Successfully Signup completed")
+            return redirect('/login')
         else:
                 return HttpResponse("404- Not found")
     except Exception as e:
-        messages.error(request, "Enter details properly, Username must be unique")
+        messages.error(request, "This user name is already taken Please try other username")
         return redirect('/signup') 
 
 

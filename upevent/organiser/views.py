@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from organiser.models import Organiser,Package
+from organiser.models import Organiser,Package,Contact
 from user.models import Order
 from datetime import date
 import json
@@ -58,4 +58,8 @@ def viewpackage(request):
         prod=Package.objects.filter(category=cat)
         allpack.append(prod)
     return  render(request ,'organiser/viewpackage.html',{'allpack':allpack})
+
+def viewquery(request):
+    query=Contact.objects.all()
+    return render(request,'organiser/viewquery.html',{'query':query})
     

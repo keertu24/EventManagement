@@ -48,7 +48,6 @@ class Organiser(models.Model):
         ('FOOD','FOOD'),
         ('DECORATION','DECORATION'),
         ('MUSIC','MUSIC'),
-        ('LIGHTING','LIGHTING'),
         ('STAGE PROGRAM','STAGE PROGRAM')
     )
     org_id = models.AutoField(primary_key=True)
@@ -81,7 +80,6 @@ class Package(models.Model):
         ('FOOD','FOOD'),
         ('DECORATION','DECORATION'),
         ('MUSIC','MUSIC'),
-        ('LIGHTING','LIGHTING'),
         ('STAGE PROGRAM','STAGE PROGRAM')
     )
     package_id=models.AutoField(primary_key=True)
