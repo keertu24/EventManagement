@@ -77,12 +77,12 @@ def confirmaddprofile(request):
                 url =fs.url(filename)
                 new_user_profile=UserProfile(user_name=owner,user_mbl_no=mbl_no,user_dob=dob,user_gender=gender,user_image=url)
                 new_user_profile.save()
-                messages.success(request,'Profile saved')
+                messages.success(request,'Profile information successfully saved')
                 return redirect('/user/userprofile')
             # saving information in UserProfile table 
             new_user_profile=UserProfile(user_name=owner,user_mbl_no=mbl_no,user_dob=dob,user_gender=gender)
             new_user_profile.save()
-            messages.success(request,'Profile saved')
+            messages.success(request,'Profile information successfully saved')
             return redirect('/user/userprofile')
         else:
 
@@ -129,6 +129,7 @@ def confirmeditprofile(request):
             update_user_profile.user_dob=dob
             update_user_profile.user_gender=gender
             update_user_profile.save()
+            messages.success(request,'Profile information successfully updated')
             return redirect('/user/userprofile')
         except:
             messages.error(request,'Please add information before editing it !!!!! ')
@@ -206,7 +207,7 @@ def confirmcheckout(request):
 
         venue_pin=request.POST.get('checkoutpin')
         if len(venue_pin)!=6 :
-            messages.error(request, "Pin code ")
+            messages.error(request, "Pin code must be 6 digits")
             return redirect('/user/checkout')
 
         order_amount=request.POST.get('estcost')
