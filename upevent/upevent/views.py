@@ -105,6 +105,7 @@ def contactUs(request):
         desc=request.POST.get('contactdesc', '')
         contact = Contact(name=name, email=email, phone=phone, desc=desc)
         contact.save()
+        messages.success(request,'Your query submitted ,we will reach you shortly ')
     return render(request, "upevents/contactus.html")
 
 def newslist(request):

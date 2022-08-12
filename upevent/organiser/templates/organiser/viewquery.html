@@ -1,6 +1,34 @@
 {% extends 'upevents/bootstrap.html' %}
-{%block title%} View Queries{%endblock title %} 
+{%block title%} View Queries{%endblock title %}
+{%block style%} style="background-color: #E3F2FD;"{%endblock%}
 {% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/organiser">upevents</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+{% for i in query %}
+<div class="container shadow m-3 mx-auto bg-white">
+    <h5 class="p-3 text-primary">Query id :{{i.contact_id}}</p></h5>
+    <div class="row p-3">
+        <div class="col">
+            <p>Name :{{i.name}}</p>
+        </div>
+        <div class="col">
+            <p>Phone : {{i.phone}} </p>
+        </div>
+        <div class="col"> Email Id:{{i.email}} </div>
+    </div>
+    <div class="row p-3 shadow">
+        <div class="col ">
+            {{i.desc}}
 
-
+        </div>
+    </div>
+</div>
+{%endfor%}
 {% endblock body %}
